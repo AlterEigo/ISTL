@@ -1,0 +1,11 @@
+*
+!*.c
+!*.h
+!include
+!include/istl
+!sources
+!sources/istl
+!tests
+!Makefile
+!.gitignore
+!.gitkeep
