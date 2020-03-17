@@ -7,6 +7,13 @@
 #ifndef IS_COMMON_TYPES_H_INCLUDED
 #define IS_COMMON_TYPES_H_INCLUDED
 
+/*!
+ *  \brief Variable attribute allowing to autofree a pointer
+ *  \details If the pointer was allocated with **snew**, allows to
+ *  automatically call a destructor upon it (if any stored in it's **mtype_t**
+ * */
+#define SMART __attribute__((cleanup(sdel)))
+
 typedef enum {FALSE = 0, TRUE = 1} (bool_t);    //!< Boolean typedef
 typedef unsigned int (uint_t);                  //!< Unsigned int typedef
 typedef unsigned long long (hash_value_t);      //!< Hash number typedef
@@ -21,6 +28,7 @@ typedef char const* (cchar_t);          //!< Constant C string typedef
     problems related to an object's shallow copy.
 */
 typedef void *(*cpy_constructor_ft)(void const* poriginal);
+typedef void *(*ctor_ft)(void const* poriginal);
 
 /*!
     \brief Destructor prototype
@@ -30,6 +38,18 @@ typedef void *(*cpy_constructor_ft)(void const* poriginal);
     any memory leak due to the storage in such structure.
 */
 typedef void (*destructor_ft)(void *pdata);
+typedef void (*dtor_ft)(void *pdata);
+
+/*!
+ *  \brief Extended allocated memory block
+ *  \details This structure is for internal use only:
+ *  alloc functions use it to stock an object's destructor
+ *  right before the memory block itself
+ * */
+typedef struct ExMemCell {
+    dtor_ft dtor;
+    void *data;
+} (mcell_t);
 
 /*!
     \brief Container with all custom type infos
@@ -59,6 +79,8 @@ extern const meta_bundle_t MB_CHAR;
 extern const meta_bundle_t MB_PTR;
 extern const meta_bundle_t MB_BOOL;
 
+void *snew(mdata_t m);
+void sdel(void *data);
 void *mem_copy(void const *data, dsize_t size);
 
 #endif
