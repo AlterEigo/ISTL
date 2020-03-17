@@ -42,11 +42,15 @@ typedef void (*destructor_ft)(void *pdata);
     structure. In C you can't guess generic structure's type,
     so you have to create a description structure manually.
 */
-typedef struct MetaBundle {
+struct MetaBundle {
     cpy_constructor_ft copy; //!< Pointer to the type's copy constructor
     destructor_ft destroy; //!< Pointer to the type destructor
     dsize_t data_size;  //!< Type's size in bytes
-} meta_bundle_t;
+};
+
+//__attribute__((deprecated("Use mdata_t instead")))
+typedef struct MetaBundle (meta_bundle_t);
+typedef struct MetaBundle (mdata_t);
 
 void *mem_copy(void const *data, dsize_t size);
 

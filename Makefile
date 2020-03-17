@@ -105,7 +105,6 @@ C_FLAGS			=	-W -Wall -Wextra -Werror \
 				-Wno-unused-but-set-variable \
 				-Wno-unused-but-set-parameter \
 				-Wno-unused-function \
-				-Wno-deprecated-declarations \
 				$(C_FLAGS_INPUT)
 L_FLAGS			=	$(L_FLAGS_INPUT)
 COV_FLAGS		=	-fprofile-arcs -ftest-coverage
@@ -113,8 +112,7 @@ VALGRIND_FLAGS		=	--leak-check=full \
 				--show-leak-kinds=all \
 				--track-origins=yes \
 				--verbose \
-				--log-file=valgrind-out.txt \
-				--suppressions=val.supp
+				--log-file=valgrind-out.txt
 
 
 ############################
@@ -143,7 +141,7 @@ debug:
 
 valgrind:
 	@make re C_FLAGS_INPUT=-g\ -g3 --no-print-directory
-	valgrind $(VALGRIND_FLAGS) ./$(TARGET_NAME) $(VALGRIND_INJECT)
+	@valgrind $(VALGRIND_FLAGS) ./$(TARGET_NAME) $(VALGRIND_INJECT)
 
 directories: | $(SOURCE_DIR) $(OBJECT_DIR)
 
