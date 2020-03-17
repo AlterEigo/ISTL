@@ -52,6 +52,13 @@ struct MetaBundle {
 typedef struct MetaBundle (meta_bundle_t);
 typedef struct MetaBundle (mdata_t);
 
+extern const meta_bundle_t MB_INT;
+extern const meta_bundle_t MB_FLOAT;
+extern const meta_bundle_t MB_DOUBLE;
+extern const meta_bundle_t MB_CHAR;
+extern const meta_bundle_t MB_PTR;
+extern const meta_bundle_t MB_BOOL;
+
 void *mem_copy(void const *data, dsize_t size);
 
 #endif

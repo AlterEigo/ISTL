@@ -87,7 +87,8 @@ SOURCES_LIST		=	    	main.c \
 					hash_table.c \
 					utility.c \
 					cubic_bezier.c \
-					iterator.c
+					iterator.c \
+					common_types.c
 LIBRARY			=
 
 

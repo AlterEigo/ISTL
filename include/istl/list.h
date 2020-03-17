@@ -10,13 +10,6 @@
 #include "common_types.h"
 #include "iterator.h"
 
-extern const meta_bundle_t MB_INT;
-extern const meta_bundle_t MB_FLOAT;
-extern const meta_bundle_t MB_DOUBLE;
-extern const meta_bundle_t MB_CHAR;
-extern const meta_bundle_t MB_PTR;
-extern const meta_bundle_t MB_BOOL;
-
 /*!
     \brief Bidirectional linked list class
     \details This class represents a data container

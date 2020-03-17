@@ -17,8 +17,6 @@ static map_t *global_manager(int sig)
     if (sig == 1) {
         map_free(&storage);
         return (0);
-    } else if (sig == 2) {
-        return (storage);
     } else {
         storage = (storage == 0) ? map_create(10, MB_UTYPE) : storage;
     }
@@ -50,13 +48,6 @@ void *utility_get_var(char const *str)
     if (str == 0 || global == 0)
         return (0);
     return (map_get(global, hash_str(str)));
-}
-
-bool_t utility_sready(void)
-{
-    if (global_manager(2) == 0)
-        return (FALSE);
-    return (TRUE);
 }
 
 uint_t expect_uint(uint_t val, uint_t lhs, uint_t rhs)
