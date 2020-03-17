@@ -9,3 +9,4 @@
 !Makefile
 !.gitignore
 !.gitkeep
+sources/main.c
