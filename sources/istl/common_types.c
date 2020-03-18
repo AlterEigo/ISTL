@@ -14,9 +14,9 @@ const meta_bundle_t MB_CHAR = {0, 0, sizeof(char)};
 const meta_bundle_t MB_PTR = {0, 0, sizeof(int*)};
 const meta_bundle_t MB_BOOL = {0, 0, sizeof(bool_t)};
 
-static mcell_t *get_mcell(void *ptr)
+mcell_t *get_mcell(void *ptr)
 {
-    return (ptr - sizeof(mcell_t));
+    return (*(void**)ptr - sizeof(mcell_t));
 }
 
 __attribute__((malloc))
@@ -25,20 +25,50 @@ void *snew(mdata_t m)
     mcell_t *mcell = malloc(sizeof(mcell_t) + m.data_size);
 
     *mcell = (mcell_t) {
+        .type = SP_UNIQUE,
+        .count = NULL,
         .dtor = m.destroy,
         .data = mcell + 1
     };
-    *(int*)mcell->data = 4;
     return (mcell->data);
+}
+
+__attribute__((always_inline))
+inline void sdel_unique(mcell_t *mcell)
+{
+    if (mcell->dtor != 0)
+        mcell->dtor(mcell->data);
+    free(mcell);
+}
+
+__attribute__((always_inline))
+inline void sdel_shared(mcell_t *mcell)
+{
+    if (*mcell->count <= 1) {
+        free(mcell->count);
+        sdel_unique(mcell);
+    } else {
+        *mcell->count -= 1;
+        free(mcell);
+    }
+}
+
+__attribute__((always_inline))
+inline void sdel_weak(mcell_t *mcell)
+{
+
 }
 
 void sdel(void *data)
 {
     mcell_t *mcell = get_mcell(data);
 
-    if (data == NULL || (data != mcell->data))
+    if (data == NULL || (*(void**)data != mcell->data))
         return;
-    if (mcell->dtor != 0)
-        mcell->dtor(mcell->data);
-    free(mcell);
+    if (mcell->type == SP_UNIQUE)
+        sdel_unique(mcell);
+    if (mcell->type == SP_SHARED)
+        sdel_shared(mcell);
+    if (mcell->type == SP_WEAK)
+        sdel_weak(mcell);
 }

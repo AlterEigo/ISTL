@@ -13,6 +13,7 @@
  *  automatically call a destructor upon it (if any stored in it's **mtype_t**
  * */
 #define SMART __attribute__((cleanup(sdel)))
+#define SPTR __attribute__((cleanup(sdel)))
 
 typedef enum {FALSE = 0, TRUE = 1} (bool_t);    //!< Boolean typedef
 typedef unsigned int (uint_t);                  //!< Unsigned int typedef
@@ -40,6 +41,8 @@ typedef void *(*ctor_ft)(void const* poriginal);
 typedef void (*destructor_ft)(void *pdata);
 typedef void (*dtor_ft)(void *pdata);
 
+typedef enum SPTR_TYPE {SP_UNIQUE, SP_SHARED, SP_WEAK} sptrt_t;
+
 /*!
  *  \brief Extended allocated memory block
  *  \details This structure is for internal use only:
@@ -47,6 +50,8 @@ typedef void (*dtor_ft)(void *pdata);
  *  right before the memory block itself
  * */
 typedef struct ExMemCell {
+    sptrt_t type;
+    uint_t *count;
     dtor_ft dtor;
     void *data;
 } (mcell_t);
@@ -79,6 +84,7 @@ extern const meta_bundle_t MB_CHAR;
 extern const meta_bundle_t MB_PTR;
 extern const meta_bundle_t MB_BOOL;
 
+mcell_t *get_mcell(void *ptr);
 void *snew(mdata_t m);
 void sdel(void *data);
 void *mem_copy(void const *data, dsize_t size);

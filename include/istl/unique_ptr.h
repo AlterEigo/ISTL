@@ -7,6 +7,12 @@
 #ifndef ISTL_UNIQUE_PTR_INCLUDED
 #define ISTL_UNIQUE_PTR_INCLUDED
 
-typedef struct UniquePtr (uniptr_t);
+#include "common_types.h"
+
+typedef struct UniquePtr {
+    void *data;
+} (uptr_t);
+
+uptr_t make_unique(void *);
 
 #endif
