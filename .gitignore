@@ -1,6 +1,7 @@
 *
 !*.c
 !*.h
+!readme.md
 !include
 !include/istl
 !sources
