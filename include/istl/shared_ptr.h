@@ -1,0 +1,16 @@
+/*
+** EPITECH PROJECT, 2019
+** Title
+** File description:
+** Description
+*/
+#ifndef ISTL_SHARED_PTR_INCLUDED
+#define ISTL_SHARED_PTR_INCLUDED
+
+#include "istl/common_types.h"
+#include "istl/utility.h"
+
+void *shared_ptr(mdata_t tmeta);
+void *spcopy(void *ptr);
+
+#endif

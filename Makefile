@@ -89,7 +89,8 @@ SOURCES_LIST		=	    	main.c \
 					cubic_bezier.c \
 					iterator.c \
 					common_types.c \
-					unique_ptr.c
+					unique_ptr.c \
+					shared_ptr.c
 LIBRARY			=
 
 
