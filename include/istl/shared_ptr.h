@@ -12,5 +12,6 @@
 
 void *shared_ptr(mdata_t tmeta);
 void *spcopy(void *ptr);
+uint_t ref_count(void *ptr);
 
 #endif

@@ -16,6 +16,8 @@ const meta_bundle_t MB_BOOL = {0, 0, sizeof(bool_t)};
 
 mcell_t *get_mcell(void *ptr)
 {
+    if (ptr == NULL)
+        return (NULL);
     return (*(void**)ptr - sizeof(mcell_t));
 }
 
@@ -27,6 +29,7 @@ void *snew(mdata_t m)
     *mcell = (mcell_t) {
         .type = SP_UNIQUE,
         .count = NULL,
+        .wcount = NULL,
         .dtor = m.destroy,
         .data = mcell + 1
     };
@@ -45,30 +48,48 @@ __attribute__((always_inline))
 inline void sdel_shared(mcell_t *mcell)
 {
     if (*mcell->count <= 1) {
-        free(mcell->count);
+        if (*mcell->wcount == 0) {
+            free(mcell->wcount);
+            free(mcell->count);
+        }
+        else
+            *mcell->count = 0;
         sdel_unique(mcell);
-    } else {
+    } else
         *mcell->count -= 1;
-        free(mcell);
-    }
 }
 
 __attribute__((always_inline))
-inline void sdel_weak(mcell_t *mcell)
+inline void sdel_weak(wptr_t ptr)
 {
+    mcell_t *mcell = ptr;
 
+    if (mcell == NULL)
+        return;
+    if (*mcell->count == 0 && *mcell->wcount == 1) {
+        free(mcell->count);
+        free(mcell->wcount);
+    } else
+        mcell->wcount -= 1;
 }
 
 void sdel(void *data)
 {
     mcell_t *mcell = get_mcell(data);
 
-    if (data == NULL || (*(void**)data != mcell->data))
+    if (data == NULL || *(void**)data == NULL)
         return;
-    if (mcell->type == SP_UNIQUE)
-        sdel_unique(mcell);
-    if (mcell->type == SP_SHARED)
-        sdel_shared(mcell);
-    if (mcell->type == SP_WEAK)
-        sdel_weak(mcell);
+    if (*(void**)data != mcell->data)
+        return;
+    switch (mcell->type) {
+        case SP_UNIQUE:
+            sdel_unique(mcell);
+            break;
+        case SP_SHARED:
+            sdel_shared(mcell);
+            break;
+        case SP_WEAK:
+            sdel_weak(mcell);
+            break;
+    }
 }
