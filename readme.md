@@ -5,31 +5,55 @@
 that point to the exact same memory space. It is automatically destroyed
 and can be transfered between functions.
 
-**Example**:
+**Example**: Smart pointer creation
 ```c
 void func(int *p2)
 {
-    // 'p2' is another shared_ptr
     int a = *p2;
 
     // ... some code ...
 
-    // 'p2' is automatically destroyed before return
+    // 'p2' has no need to be destroyed, since it has been passed
+    // as usual pointer
     return;
 }
 
 int main(void)
 {
     // Pointer declaration, MB_INT is a type's describing structure
-    SMART int *p = shared_ptr(MB_INT);
+    SMART int *p = snew(MB_INT);
 
-    // Making another shared_ptr from the first one
-    // A shared ptr **ALWAYS** has to be copied this way,
-    // otherwise its internal reference counter is not increased
-    func(spcopy(p));
+    func(p);
 
     // 'p' is automatically destroyed here
     return (0);
+}
+```
+
+**Example**: Shared and weak pointers
+```c
+int *func(void)
+{
+    SMART int *sp = shared_ptr(MB_INT);
+
+    return (spcopy(sp));
+}
+
+int main(void)
+{
+    SMART int *sp = func();
+    SMART wptr_t wp = make_weak(sp);
+
+    // ... code ...
+
+    SMART int *sp2 = wptr_lock(wp);
+
+    if (sp2 != NULL)
+	// Memory was not freed
+
+    // ... code ...
+
+    // Automatic free of 'sp', 'wp', 'sp2'
 }
 ```
 
