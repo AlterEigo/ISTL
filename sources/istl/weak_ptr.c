@@ -22,7 +22,7 @@ wptr_t make_weak(void *sp)
     wp->wcount = mcell->wcount;
     *wp->wcount += 1;
     wp->count = mcell->count;
-    wp->data = NULL;
+    wp->data = mcell->data;
     return (wp);
 }
 

@@ -70,7 +70,7 @@ inline void sdel_weak(wptr_t ptr)
         free(mcell->count);
         free(mcell->wcount);
     } else
-        mcell->wcount -= 1;
+        *mcell->wcount -= 1;
 }
 
 void sdel(void *data)
