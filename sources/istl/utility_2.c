@@ -4,19 +4,20 @@
 ** File description:
 ** Description
 */
-#include "istl/utility.h"
+
+#include "istl/private/p_utility.h"
 #include "istl/hash_table.h"
 #include <stdlib.h>
 
-const meta_bundle_t MB_UTYPE = (meta_bundle_t){0, 0, sizeof(utype_t)};
-
-static map_t *global_manager(int sig)
+map_t *global_manager(int sig)
 {
     static map_t *storage = 0;
 
     if (sig == 1) {
         map_free(&storage);
         return (0);
+    } else if (sig == 2) {
+        return (storage);
     } else {
         storage = (storage == 0) ? map_create(10, MB_UTYPE) : storage;
     }
@@ -50,9 +51,9 @@ void *utility_get_var(char const *str)
     return (map_get(global, hash_str(str)));
 }
 
-uint_t expect_uint(uint_t val, uint_t lhs, uint_t rhs)
+bool_t utility_sready(void)
 {
-    val = val < lhs ? lhs : val;
-    val = val > rhs ? rhs : val;
-    return (val);
+    if (global_manager(2) == 0)
+        return (FALSE);
+    return (TRUE);
 }

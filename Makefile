@@ -83,9 +83,14 @@ vpath %.c $(SOURCE_DIR)/istl
 
 
 SOURCES_LIST		=	    	main.c \
-					list.c \
+					list_1.c \
+					list_2.c \
+					list_3.c \
+					list_4.c \
+					list_5.c \
 					hash_table.c \
-					utility.c \
+					utility_1.c \
+					utility_2.c \
 					cubic_bezier.c \
 					iterator.c \
 					common_types.c \

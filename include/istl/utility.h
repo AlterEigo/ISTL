@@ -23,6 +23,7 @@ extern const meta_bundle_t MB_UTYPE;
 
 void utility_set_var(char const *, utype_t);
 void *utility_get_var(char const *);
+bool_t utility_sready(void);
 void utility_reset(void);
 
 /*!
