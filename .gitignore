@@ -4,6 +4,7 @@
 !readme.md
 !include
 !include/istl
+!include/istl/private
 !sources
 !sources/istl
 !tests
