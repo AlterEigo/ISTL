@@ -92,7 +92,10 @@ SOURCES_LIST		=	    	main.c \
 					utility_1.c \
 					utility_2.c \
 					cubic_bezier.c \
-					iterator.c \
+					iterator_1.c \
+					iterator_2.c \
+					iterator_3.c \
+					iterator_4.c \
 					common_types.c \
 					shared_ptr.c \
 					weak_ptr.c
