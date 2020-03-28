@@ -14,6 +14,8 @@ const meta_bundle_t MB_CHAR = {0, 0, sizeof(char)};
 const meta_bundle_t MB_PTR = {0, 0, sizeof(int*)};
 const meta_bundle_t MB_BOOL = {0, 0, sizeof(bool_t)};
 
+const vec2_t V_NULL = {.x = 0, .y = 0};
+
 mcell_t *get_mcell(void *ptr)
 {
     if (ptr == NULL)

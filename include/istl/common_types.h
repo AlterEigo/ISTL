@@ -7,6 +7,8 @@
 #ifndef IS_COMMON_TYPES_H_INCLUDED
 #define IS_COMMON_TYPES_H_INCLUDED
 
+#include <curses.h>
+
 /*!
  *  \brief Variable attribute allowing to autofree a pointer
  *  \details If the pointer was allocated with **snew**, allows to
@@ -14,7 +16,8 @@
  * */
 #define SMART __attribute__((cleanup(sdel)))
 
-typedef enum {FALSE = 0, TRUE = 1} (bool_t);    //!< Boolean typedef
+// typedef enum {FALSE = 0, TRUE = 1} (bool_t);    //!< Boolean typedef
+typedef bool (bool_t);
 typedef unsigned int (uint_t);                  //!< Unsigned int typedef
 typedef unsigned long long (hash_value_t);      //!< Hash number typedef
 typedef long unsigned int (dsize_t);    //!< Data size typedef
@@ -56,6 +59,13 @@ typedef struct ExMemCell {
     dtor_ft dtor;
     void *data;
 } (mcell_t);
+
+typedef struct Vector2 {
+    int x;
+    int y;
+} vec2_t;
+
+extern const vec2_t V_NULL;
 
 /*!
     \brief Container with all custom type infos
