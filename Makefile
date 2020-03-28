@@ -98,7 +98,8 @@ SOURCES_LIST		=	    	main.c \
 					iterator_4.c \
 					common_types.c \
 					shared_ptr.c \
-					weak_ptr.c
+					weak_ptr.c \
+					string.c
 LIBRARY			=
 
 
