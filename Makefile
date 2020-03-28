@@ -99,7 +99,11 @@ SOURCES_LIST		=	    	main.c \
 					common_types.c \
 					shared_ptr.c \
 					weak_ptr.c \
-					string.c
+					string_1.c \
+					string_2.c \
+					string_3.c \
+					string_4.c \
+					string_5.c
 LIBRARY			=
 
 
