@@ -126,7 +126,7 @@ void *list_data(iterator_t it);
     null ```list``` pointer. Stores data any if
     ```data == 0```
 */
-void list_push_back(list_t *list, void *data);
+void list_push_back(list_t *list, void const *data);
 
 /*!
     This function inserts an element's **copy**

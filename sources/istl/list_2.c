@@ -71,17 +71,18 @@ void list_merge(list_t *lhs, list_t *rhs)
         list_push_back(lhs, list_data(it));
 }
 
-void list_push_back(list_t *list, void *data)
+void list_push_back(list_t *list, void const *data_p)
 {
     iterator_t *it = 0;
     dsize_t sizeof_data;
+    void *data = NULL;
     cpy_constructor_ft copy;
 
     if (list == 0)
         return;
     copy = list->type_meta.copy;
     sizeof_data = list->type_meta.data_size;
-    data = (copy == 0) ? mem_copy(data, sizeof_data) : copy(data);
+    data = (copy == 0) ? mem_copy(data_p, sizeof_data) : copy(data_p);
     it = it_allocate(data, sizeof_data);
     if (list->size == 0) {
         list->begin = it;

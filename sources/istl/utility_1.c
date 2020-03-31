@@ -11,13 +11,13 @@
 
 const meta_bundle_t MB_UTYPE = (meta_bundle_t){0, 0, sizeof(utype_t)};
 const fnode_t REGEX_UINT[] = {
-        {.cset = "+-", .ps = 0, .ns = 1, .fs = FALSE},
-        {.cset = "0123456789", .ps = 0, .ns = 2, .fs = FALSE},
-        {.cset = "0123456789", .ps = 1, .ns = 2, .fs = TRUE},
-        {.cset = "0123456789", .ps = 2, .ns = 2, .fs = TRUE},
-        {.cset = ".", .ps = 2, .ns = 3, .fs = TRUE},
-        {.cset = "0", .ps = 3, .ns = 3, .fs = TRUE},
-        {0, 0, 0, 0}
+        {.cset = "+-", .ps = 0, .ns = 1, .fs = FALSE, .flags = 0x0},
+        {.cset = "0123456789", .ps = 0, .ns = 2, .fs = TRUE, .flags = 0x0},
+        {.cset = "0123456789", .ps = 1, .ns = 2, .fs = TRUE, .flags = 0x0},
+        {.cset = "0123456789", .ps = 2, .ns = 2, .fs = TRUE, .flags = 0x0},
+        {.cset = ".", .ps = 2, .ns = 3, .fs = TRUE, .flags = 0x0},
+        {.cset = "0", .ps = 3, .ns = 3, .fs = TRUE, .flags = 0x0},
+        {.cset = NULL, .ps = -1, .ns = -1, .fs = FALSE, .flags = 0x0}
 };
 
 uint_t expect_uint(uint_t val, uint_t lhs, uint_t rhs)
@@ -38,18 +38,23 @@ bool_t str_contains(cchar_t set, char c)
     return (FALSE);
 }
 
-void regex_forward(char c, const fnode_t arr[], int *state_p)
+fnode_t const *regex_forward(char c, const fnode_t arr[], int *state_p)
 {
     int nstate = -1;
+    fnode_t const *node_p = NULL;
 
     if (state_p == NULL || arr == NULL)
-        return;
-    for (uint_t i = 0; arr[i].cset != NULL; i++) {
+        return (NULL);
+    for (uint_t i = 0; !fnode_null(arr + i); i++) {
         if (arr[i].ps != *state_p)
             continue;
-        nstate = str_contains(arr[i].cset, c) ? arr[i].ns : nstate;
+        if (str_contains(arr[i].cset, c)) {
+            nstate = arr[i].ns;
+            node_p = arr + i;
+        }
     }
     *state_p = nstate;
+    return (node_p);
 }
 
 bool_t str_uint(cchar_t str)

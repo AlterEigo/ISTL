@@ -46,6 +46,8 @@ string_t *str_addch(string_t const *lhs, char rhs)
     string_t *nstr = 0;
     string_t *ret = 0;
 
+    if (lhs == NULL)
+        return (NULL);
     tmp = malloc(sizeof(char) * 2);
     tmp[0] = rhs;
     tmp[1] = 0;

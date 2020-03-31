@@ -12,6 +12,10 @@
 
 #include <stdio.h>
 
+typedef struct HashMap (map_t);
+extern const char GR_START;
+extern const char GR_END;
+
 typedef union UniType {
     int i_num;
     float f_num;
@@ -24,6 +28,7 @@ typedef struct FaNode {
     int ps;
     int ns;
     bool_t fs;
+    char flags;
 } fnode_t;
 
 extern const meta_bundle_t MB_UTYPE;
@@ -43,6 +48,10 @@ void utility_reset(void);
 uint_t expect_uint(uint_t val, uint_t lhs, uint_t rhs);
 bool_t str_contains(cchar_t set, char c);
 bool_t str_uint(cchar_t str);
-void regex_forward(char, const fnode_t[], int *);
+bool_t fnode_null(fnode_t const *);
+bool_t fnode_gstart(fnode_t const *);
+bool_t fnode_gend(fnode_t const *);
+fnode_t const *regex_forward(char, const fnode_t[], int *);
+bool_t regex_extract(cchar_t str, fnode_t const *const pattern, map_t *grp);
 
 #endif
