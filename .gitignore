@@ -1,14 +1,17 @@
+# Ignore everything
 *
+
+# Ignore everything that is not a directory
+!*/
+
+# Blacklisted directories
+
+# Whitelisted types
 !*.c
 !*.h
-!readme.md
-!include
-!include/istl
-!include/istl/private
-!sources
-!sources/istl
-!tests
+!*.md
 !Makefile
 !.gitignore
-!.gitkeep
+
+# Blacklisted files
 sources/main.c
