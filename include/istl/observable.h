@@ -7,9 +7,6 @@
 #ifndef OBSERVABLE_H_INCLUDED
 #define OBSERVABLE_H_INCLUDED
 
-#include "istl/common_types.h"
-#include "istl/list.h"
-
 typedef struct Observable (observable_t);
 typedef int (*obs_callback_ft)(void *observer, void *obs, int);
 
