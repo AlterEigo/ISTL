@@ -91,6 +91,7 @@ SOURCES_LIST		=	    	main.c \
 					hash_table.c \
 					utility_1.c \
 					utility_2.c \
+					utility_3.c \
 					cubic_bezier.c \
 					iterator_1.c \
 					iterator_2.c \
