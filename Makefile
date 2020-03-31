@@ -104,7 +104,8 @@ SOURCES_LIST		=	    	main.c \
 					string_2.c \
 					string_3.c \
 					string_4.c \
-					string_5.c
+					string_5.c \
+					observable_1.c
 LIBRARY			=
 
 
