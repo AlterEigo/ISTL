@@ -15,5 +15,6 @@ typedef int (*obs_callback_ft)(void *observer, void *obs, int);
 
 int obs_subscribe(observable_t *, void *, obs_callback_ft);
 int obs_notify(observable_t *, void *, int);
+int obs_unsubscribe(observable_t *, void *);
 
 #endif
