@@ -14,6 +14,6 @@ typedef struct Observable (observable_t);
 typedef int (*obs_callback_ft)(void *observer, void *obs, int);
 
 int obs_subscribe(observable_t *, void *, obs_callback_ft);
-int obs_notify(observable_t *, int);
+int obs_notify(observable_t *, void *, int);
 
 #endif
