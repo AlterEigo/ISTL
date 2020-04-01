@@ -11,11 +11,11 @@
 
 const meta_bundle_t MB_UTYPE = (meta_bundle_t){0, 0, sizeof(utype_t)};
 const fnode_t REGEX_UINT[] = {
-        {.cset = "+-", .ps = 0, .ns = 1, .fs = FALSE, .flags = 0x0},
-        {.cset = "0123456789", .ps = 0, .ns = 2, .fs = TRUE, .flags = 0x0},
-        {.cset = "0123456789", .ps = 1, .ns = 2, .fs = TRUE, .flags = 0x0},
+        {.cset = "+-", .ps = 0, .ns = 1, .fs = FALSE, .flags = 0x01},
+        {.cset = "0123456789", .ps = 0, .ns = 2, .fs = TRUE, .flags = 0x01},
+        {.cset = "0123456789", .ps = 1, .ns = 2, .fs = TRUE, .flags = 0x03},
         {.cset = "0123456789", .ps = 2, .ns = 2, .fs = TRUE, .flags = 0x0},
-        {.cset = ".", .ps = 2, .ns = 3, .fs = TRUE, .flags = 0x0},
+        {.cset = ".", .ps = 2, .ns = 3, .fs = TRUE, .flags = 0x02},
         {.cset = "0", .ps = 3, .ns = 3, .fs = TRUE, .flags = 0x0},
         {.cset = NULL, .ps = -1, .ns = -1, .fs = FALSE, .flags = 0x0}
 };

@@ -13,8 +13,9 @@
 #include <stdio.h>
 
 typedef struct HashMap (map_t);
-extern const char GR_START;
-extern const char GR_END;
+
+#define GR_START 0x01
+#define GR_END 0x02
 
 typedef union UniType {
     int i_num;
