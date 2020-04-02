@@ -21,7 +21,7 @@ void *str_copy(void const *str)
 
     if (str == 0)
         return (0);
-    nstr = (string_t*)str;
+    nstr = (string_t *)str;
     nstr = str_dup(nstr);
     return (nstr);
 }
@@ -48,7 +48,7 @@ void str_errprint(string_t const *str)
 
 void str_destroy(void *data)
 {
-    string_t *str = (string_t*)data;
+    string_t *str = (string_t *)data;
 
     if (str == 0)
         return;
@@ -63,7 +63,7 @@ string_t *str_create(const cchar_t cstr)
     nstr->cstr = 0;
     if (cstr != 0) {
         for (len = 0; cstr[len] != 0; len++);
-        nstr->cstr = (char*)mem_copy(cstr, len + 1);
+        nstr->cstr = (char *)mem_copy(cstr, len + 1);
     }
     nstr->length = len;
     return (nstr);

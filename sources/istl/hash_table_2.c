@@ -19,7 +19,7 @@ void *map_get(map_t *map, hash_value_t key)
     list = map->data_table[key % map->array_size];
     it = list_begin(list);
     for (uint_t i = 0; i < list_len(list); i++, it = it_next(it)) {
-        item = (ht_item_t*)list_data(it);
+        item = (ht_item_t *)list_data(it);
         if (item != 0 && item->key == key)
             return (item->value);
     }
@@ -38,7 +38,7 @@ list_t *map_get_all(map_t *map, hash_value_t key)
     list = map->data_table[key % map->array_size];
     it = list_begin(list);
     for (uint_t i = 0; i < list_len(list); i++, it = it_next(it)) {
-        item = (ht_item_t*)list_data(it);
+        item = (ht_item_t *)list_data(it);
         if (item != 0 && item->key == key) {
             found = (found == 0) ? list_create(map->type_meta) : found;
             list_push_back(found, item->value);
@@ -59,7 +59,7 @@ void *map_pull(map_t *map, hash_value_t key)
     list = map->data_table[key % map->array_size];
     it = list_begin(list);
     for (uint_t i = 0; i < list_len(list); i++, it = it_next(it)) {
-        item = (ht_item_t*)list_data(it);
+        item = (ht_item_t *)list_data(it);
         if (item->key == key) {
             item = list_pull(list, it);
             data = item->value;
@@ -83,7 +83,7 @@ void *map_erase(map_t *map, hash_value_t key, hash_value_t sign)
     list = map->data_table[key % map->array_size];
     it = list_begin(list);
     for (uint_t i = 0; i < list_len(list); i++, it = it_next(it)) {
-        item = (ht_item_t*)list_data(it);
+        item = (ht_item_t *)list_data(it);
         if (item->key == key)
             return (map_erase_item(list, it, sign, map->type_meta.data_size));
     }

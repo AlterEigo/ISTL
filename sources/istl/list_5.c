@@ -58,10 +58,10 @@ list_t *list_splice(list_t *list, iterator_t begin, iterator_t end)
 void *mem_copy(void const *data, dsize_t size)
 {
     void *ndata = malloc(size);
-    byte_t *byte = (byte_t*)ndata;
+    byte_t *byte = (byte_t *)ndata;
 
     for (dsize_t i = 0; i < size; i++) {
-        *(byte + i) = *((byte_t*)data + i);
+        *(byte + i) = *((byte_t *)data + i);
     }
     return (ndata);
 }

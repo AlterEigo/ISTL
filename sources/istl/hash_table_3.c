@@ -37,7 +37,7 @@ void map_free(map_t **pmap)
         it = list_begin((*pmap)->data_table[i]);
         llen = list_len((*pmap)->data_table[i]);
         for (uint_t j = 0; j < llen; j++, it = it_next(it)) {
-            item = (ht_item_t*)list_data(it);
+            item = (ht_item_t *)list_data(it);
             free_item_content(item, (*pmap)->type_meta.destroy);
         }
         list_free(&(*pmap)->data_table[i]);
@@ -64,9 +64,9 @@ void ht_item_free(ht_item_t **item)
     (*item) = 0;
 }
 
-void *ht_item_copy(void const* item)
+void *ht_item_copy(void const * item)
 {
-    ht_item_t *old = (ht_item_t*)item;
+    ht_item_t *old = (ht_item_t *)item;
     ht_item_t *nitem = 0;
 
     if (old == 0)

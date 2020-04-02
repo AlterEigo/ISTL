@@ -33,7 +33,7 @@ void **list_to_array(list_t *list)
     it = list_begin(list);
     dsize = list->type_meta.data_size;
     size = list_len(list);
-    array = (void**)malloc(sizeof(void*) * size);
+    array = (void **)malloc(sizeof(void *) * size);
     for (int i = 0; !list_final(list, it); i++) {
         if (list->type_meta.copy == 0)
             array[i] = mem_copy(list_data(it), dsize);
@@ -86,7 +86,7 @@ void list_push_back(list_t *list, void const *data_p)
     it = it_allocate(data, sizeof_data);
     if (list->size == 0) {
         list->begin = it;
-        it_couple(list->begin, list->end);    
+        it_couple(list->begin, list->end);
     } else {
         it_couple(it_get_prior(list->end), it);
         it_couple(it, list->end);

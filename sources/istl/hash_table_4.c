@@ -10,7 +10,7 @@
 
 void ht_item_destroy(void *item)
 {
-    ht_item_t *tmp = (ht_item_t*)item;
+    ht_item_t *tmp = (ht_item_t *)item;
 
     ht_item_free(&tmp);
 }
@@ -25,7 +25,7 @@ void *map_erase_item(
     void *data = NULL;
     ht_item_t *item = NULL;
 
-    item = (ht_item_t*)list_data(it);
+    item = (ht_item_t *)list_data(it);
     dhash = hash_data(item->value, size);
     if (dhash == sign) {
         item = list_pull(list, it);

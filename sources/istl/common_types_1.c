@@ -11,7 +11,7 @@ const meta_bundle_t MB_INT = {0, 0, sizeof(int)};
 const meta_bundle_t MB_FLOAT = {0, 0, sizeof(float)};
 const meta_bundle_t MB_DOUBLE = {0, 0, sizeof(double)};
 const meta_bundle_t MB_CHAR = {0, 0, sizeof(char)};
-const meta_bundle_t MB_PTR = {0, 0, sizeof(int*)};
+const meta_bundle_t MB_PTR = {0, 0, sizeof(int *)};
 const meta_bundle_t MB_BOOL = {0, 0, sizeof(bool_t)};
 
 const vec2_t V_NULL = {.x = 0, .y = 0};
@@ -72,9 +72,9 @@ void sdel(void *data)
 {
     mcell_t *mcell = get_mcell(data);
 
-    if (data == NULL || *(void**)data == NULL)
+    if (data == NULL || *(void **)data == NULL)
         return;
-    if (*(void**)data != mcell->data)
+    if (*(void **)data != mcell->data)
         return;
     switch (mcell->type) {
         case SP_UNIQUE:

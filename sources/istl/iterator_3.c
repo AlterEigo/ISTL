@@ -34,7 +34,7 @@ iterator_t it_back(iterator_t it)
     if (it.prior != 0)
         return (*it.prior);
     return (it);
-} 
+}
 
 iterator_t *it_get_next(iterator_t *it)
 {

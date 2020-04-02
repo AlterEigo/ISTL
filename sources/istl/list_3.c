@@ -84,7 +84,7 @@ void *list_pull(list_t *list, iterator_t it)
     prior = it_get_prior(&it);
     next = it_get_next(&it);
     if (prior == 0)
-	list->begin = next;
+        list->begin = next;
     pit = (prior == 0) ? it_get_prior(next) : it_get_next(prior);
     it_free(&pit);
     it_couple(prior, next);
