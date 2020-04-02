@@ -71,6 +71,8 @@ SOURCE_DIR			=	sources
 OBJECT_DIR			=	objects
 HEADER_DIR			=	include
 TESTS_DIR			=	tests
+DEP_FILE			=	$(SOURCE_DIR)/istl_sources.d
+TARBALL				=	istl.tar.gz
 GDB_ARGV			=
 
 vpath %.c $(SOURCE_DIR)
@@ -161,6 +163,10 @@ valgrind:
 	@make re C_FLAGS_INPUT=-g\ -g3 --no-print-directory
 	@valgrind $(VALGRIND_FLAGS) ./$(TARGET_NAME) $(VALGRIND_INJECT)
 
+
+tarball: $(TARBALL)
+
+
 directories: | $(SOURCE_DIR) $(OBJECT_DIR)
 
 
@@ -168,15 +174,17 @@ re:	clean all
 
 
 clean:
-	@rm -rf ./$(OBJECT_DIR)/*.o
-	@rm -rf ./$(OBJECT_DIR)/*.dp
-	@rm -rf ./*.gc*
-	@rm -rf ./__*
+	-@rm -rf ./$(OBJECT_DIR)/*.o
+	-@rm -rf ./$(OBJECT_DIR)/*.dp
+	-@rm -rf ./*.gc*
+	-@rm -rf ./__*
 
 
 fclean: clean
-	@rm -rf ./$(OBJECT_DIR)
-	@rm -f ./$(TARGET_NAME)
+	-@rm -rf ./$(OBJECT_DIR)
+	-@rm -f ./$(TARGET_NAME)
+	-@rm -f ./$(TARBALL)
+	-@rm -f ./$(DEP_FILE)
 
 
 ###############################
@@ -187,6 +195,17 @@ fclean: clean
 $(TARGET_NAME): $(OBJECTS)
 	@$(CC) -o $(TARGET_NAME) $^ $(L_FLAGS)
 	@echo -e "--- '\e[32mBUILD SUCCESSFULL\e[39m ---"
+
+
+$(DEP_FILE): $(SOURCES_LIST)
+	@echo -e "--- \e[32mCreating dependency file\e[39m : '\e[34m$@\e[39m' ---"
+	@touch $(DEP_FILE) && echo "ISTL_MODULE = $^" > $(DEP_FILE)
+
+
+$(TARBALL): $(DEP_FILE)
+	@echo -e "--- \e[32mCreating ISTL tarball\e[39m : '\e[34m$@\e[39m' ---"
+	@tar czf $(TARBALL) $(SOURCE_DIR) $(HEADER_DIR) $(DEP_FILE)
+	@echo -e "--- \e[32mDone\e[39m ---"
 
 
 $(OBJECT_DIR):
