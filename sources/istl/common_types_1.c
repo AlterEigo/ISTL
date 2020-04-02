@@ -16,13 +16,6 @@ const meta_bundle_t MB_BOOL = {0, 0, sizeof(bool_t)};
 
 const vec2_t V_NULL = {.x = 0, .y = 0};
 
-mcell_t *get_mcell(void *ptr)
-{
-    if (ptr == NULL)
-        return (NULL);
-    return (*(void**)ptr - sizeof(mcell_t));
-}
-
 __attribute__((malloc))
 void *snew(mdata_t m)
 {

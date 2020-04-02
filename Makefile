@@ -84,8 +84,8 @@ vpath %.c $(SOURCE_DIR)/istl
 ############################
 
 
-SOURCES_LIST		=	    	main.c \
-					list_1.c \
+MAIN_SOURCE		=		main.c
+SOURCES_LIST		=		list_1.c \
 					list_2.c \
 					list_3.c \
 					list_4.c \
@@ -99,7 +99,8 @@ SOURCES_LIST		=	    	main.c \
 					iterator_2.c \
 					iterator_3.c \
 					iterator_4.c \
-					common_types.c \
+					common_types_1.c \
+					common_types_2.c \
 					shared_ptr.c \
 					weak_ptr.c \
 					string_1.c \
@@ -140,8 +141,8 @@ VALGRIND_FLAGS		=	--leak-check=full \
 ############################
 
 
-OBJECTS			=	$(patsubst %.c, $(OBJECT_DIR)/%.o, $(SOURCES_LIST))
-NON_M_OBJECTS		=	$(patsubst %main.o, , $(OBJECTS))
+NON_M_OBJECTS		=	$(patsubst %.c,$(OBJECT_DIR)/%.o,$(SOURCES_LIST))
+OBJECTS			=	$(NON_M_OBJECTS) $(patsubst %.c,$(OBJECT_DIR)/%.o,$(MAIN_SOURCE))
 
 
 ############################
@@ -164,7 +165,7 @@ valgrind:
 	@valgrind $(VALGRIND_FLAGS) ./$(TARGET_NAME) $(VALGRIND_INJECT)
 
 
-tarball: $(TARBALL)
+tarball: all $(TARBALL)
 
 
 directories: | $(SOURCE_DIR) $(OBJECT_DIR)
@@ -199,12 +200,13 @@ $(TARGET_NAME): $(OBJECTS)
 
 $(DEP_FILE): $(SOURCES_LIST)
 	@echo -e "--- \e[32mCreating dependency file\e[39m : '\e[34m$@\e[39m' ---"
-	@touch $(DEP_FILE) && echo "ISTL_MODULE = $^" > $(DEP_FILE)
+	@touch $(DEP_FILE) && echo "ISTL_DIR = istl" > $(DEP_FILE)
+	@echo "ISTL_MODULE = $(patsubst %main.c,,$(SOURCES_LIST))" >> $(DEP_FILE)
 
 
-$(TARBALL): $(DEP_FILE)
+$(TARBALL): $(DEP_FILE) $(SOURCES_LIST) $(HEADER_DIR)
 	@echo -e "--- \e[32mCreating ISTL tarball\e[39m : '\e[34m$@\e[39m' ---"
-	@tar czf $(TARBALL) $(SOURCE_DIR) $(HEADER_DIR) $(DEP_FILE)
+	@tar czf $(TARBALL) $^
 	@echo -e "--- \e[32mDone\e[39m ---"
 
 
