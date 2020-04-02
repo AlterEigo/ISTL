@@ -6,7 +6,7 @@
 */
 
 #include <stdlib.h>
-#include "istl/hash_table.h"
+#include "istl/private/p_hash_table.h"
 
 void *map_get(map_t *map, hash_value_t key)
 {
@@ -84,15 +84,10 @@ void *map_erase(map_t *map, hash_value_t key, hash_value_t sign)
     it = list_begin(list);
     for (uint_t i = 0; i < list_len(list); i++, it = it_next(it)) {
         item = (ht_item_t*)list_data(it);
-        dhash = hash_data(item->value, map->type_meta.data_size);
-        if (item->key == key && dhash == sign) {
-            item = list_pull(list, it);
-            data = item->value;
-            ht_item_free(&item);
-            return (data);
-        }
+        if (item->key == key)
+            return (map_erase_item(list, it, sign, map->type_meta.data_size));
     }
-    return (0);
+    return (NULL);
 }
 
 uint_t map_count(map_t const *map)

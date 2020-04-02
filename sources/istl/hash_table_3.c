@@ -6,7 +6,7 @@
 */
 
 #include <stdlib.h>
-#include "istl/hash_table.h"
+#include "istl/private/p_hash_table.h"
 
 const meta_bundle_t MB_HT_ITEM = {
     ht_item_copy,

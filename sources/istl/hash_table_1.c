@@ -6,7 +6,7 @@
 */
 
 #include <stdlib.h>
-#include "istl/hash_table.h"
+#include "istl/private/p_hash_table.h"
 
 static hash_value_t hash_str_data(cchar_t str, uint_t len)
 {
