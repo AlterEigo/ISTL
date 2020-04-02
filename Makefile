@@ -90,7 +90,10 @@ SOURCES_LIST		=		list_1.c \
 					list_3.c \
 					list_4.c \
 					list_5.c \
-					hash_table.c \
+					hash_table_1.c \
+					hash_table_2.c \
+					hash_table_3.c \
+					hash_table_4.c \
 					utility_1.c \
 					utility_2.c \
 					utility_3.c \
