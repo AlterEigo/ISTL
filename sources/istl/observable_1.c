@@ -13,7 +13,7 @@ const mdata_t MB_OBSR = {
     .data_size = sizeof(observer_t)
 };
 
-observable_t *obs_create()
+observable_t *obs_create(void)
 {
     observable_t *obs = malloc(sizeof(observable_t));
 
