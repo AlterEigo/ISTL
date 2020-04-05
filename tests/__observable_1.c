@@ -64,6 +64,25 @@ Test(obs_subscribe, subscribe_mechanism)
     cr_assert(subj.var == 45);
 }
 
+Test(obs_unsubscribe, unsubscribe_mechanism)
+{
+    struct TestSubject subj = (struct TestSubject) {
+        .obs = obs_create(),
+        .var = 42
+    };
+
+    obs_subscribe(subj.obs, &subj, test_callback);
+    cr_expect(list_len(subj.obs->subscribers) == 1);
+    obs_unsubscribe(subj.obs, &subj);
+    cr_expect(list_len(subj.obs->subscribers) == 0);
+    obs_subscribe(subj.obs, &subj, test_callback);
+    obs_subscribe(subj.obs, &subj, test_callback);
+    obs_subscribe(subj.obs, &subj, test_callback);
+    cr_expect(list_len(subj.obs->subscribers) == 3);
+    obs_unsubscribe(subj.obs, &subj);
+    cr_expect(list_len(subj.obs->subscribers) == 0);
+}
+
 Test(obs_subscribe, nullptr_test)
 {
     cr_assert(obs_subscribe(NULL, NULL, NULL) == -1);
