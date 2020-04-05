@@ -11,9 +11,15 @@
 #include "istl/list.h"
 #include "istl/observable.h"
 
+extern const mdata_t MB_OBSR;
+
+typedef struct Observer {
+    void *ptr;
+    obs_callback_ft callback;
+} (observer_t);
+
 typedef struct Observable {
-    list_t *subs;
-    list_t *callbacks;
+    list_t *subscribers;
 } (observable_t);
 
 #endif
