@@ -47,7 +47,7 @@ int obs_subscribe(
     return (0);
 }
 
-int obs_notify(observable_t *obs_p, int sig)
+int obs_notify(observable_t *obs_p, void *robs, int sig)
 {
     iterator_t it;
     observer_t *obsr = NULL;
@@ -57,7 +57,7 @@ int obs_notify(observable_t *obs_p, int sig)
     it = list_begin(obs_p->subscribers);
     for (; !list_final(obs_p->subscribers, it); it = it_next(it)) {
         obsr = list_data(it);
-        obsr->callback(obsr->ptr, obs_p, sig);
+        obsr->callback(obsr->ptr, robs, sig);
     }
     return (0);
 }
