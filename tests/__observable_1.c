@@ -44,10 +44,11 @@ Test(observable_basic, creating_an_observable)
     cr_expect(tmeta.data_size == sizeof(observer_t));
     cr_expect(tmeta.copy == NULL);
     cr_expect(tmeta.destroy == NULL);
+    obs_free(NULL);
     obs_free(&obs);
 }
 
-Test(observable_subscribe, subscribe_mechanism)
+Test(obs_subscribe, subscribe_mechanism)
 {
     struct TestSubject subj = (struct TestSubject) {
         .obs = obs_create(),
@@ -61,4 +62,19 @@ Test(observable_subscribe, subscribe_mechanism)
     cr_assert(subj.var == 42);
     obs_notify(subj.obs, &subj, 2);
     cr_assert(subj.var == 45);
+}
+
+Test(obs_subscribe, nullptr_test)
+{
+    cr_assert(obs_subscribe(NULL, NULL, NULL) == -1);
+}
+
+Test(obs_notify, nullptr_test)
+{
+    cr_assert(obs_notify(NULL, NULL, 0) == -1);
+}
+
+Test(obs_unsubscribe, nullptr_test)
+{
+    cr_assert(obs_unsubscribe(NULL, NULL) == -1);
 }
