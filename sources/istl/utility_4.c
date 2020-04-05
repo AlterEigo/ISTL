@@ -16,7 +16,6 @@ void regex_adjust_stack(
         int *glen,
         int *idx)
 {
-    // Group flag processing
     if (fnode_gend(node_p)) {
         groups[(*glen) - 1] = 0;
         (*glen) -= 1;
