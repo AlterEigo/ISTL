@@ -36,3 +36,21 @@ void list_iswap(iterator_t *lhs, iterator_t *rhs)
     lhs->data = list_data(*rhs);
     rhs->data = data;
 }
+
+void list_sort(list_t *list, compare_ft cmp_fp)
+{   
+    iterator_t it;
+    iterator_t end;
+    iterator_t nxt;
+
+    if (list == NULL || cmp_fp == NULL || list_len(list) < 1)
+        return;
+    it = list_begin(list);
+    end = it_back(list_end(list));
+    nxt = it_next(it);
+    for (; !it_eq(it, end); it = nxt) {
+        if (cmp_fp(it, it_next(it)) == TRUE)
+            list_iswap(&it, &nxt);
+        nxt = it_next(it);
+    }
+}

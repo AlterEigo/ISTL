@@ -17,6 +17,8 @@ extern const meta_bundle_t MB_CHAR;
 extern const meta_bundle_t MB_PTR;
 extern const meta_bundle_t MB_BOOL;
 
+typedef bool_t (*compare_ft)(iterator_t lhs, iterator_t rhs);
+
 /*!
     \brief Bidirectional linked list class
     \details This class represents a data container
@@ -184,6 +186,8 @@ void list_revert(list_t *list);
     on the provided destructor (if custom object used).
 */
 void list_free(list_t **plist);
+
+void list_sort(list_t *list, compare_ft);
 
 /*!
     Returns a copy of the entire list as an array of
