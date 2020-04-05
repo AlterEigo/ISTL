@@ -232,7 +232,7 @@ __% : $(TESTS_DIR)/__%.c %.c $(NON_M_OBJECTS)
 	@./__$*
 
 
-__%_gc : $(TESTS_DIR)/__%.c $(SOURCE_DIR)/%.c $(NON_M_OBJECTS)
+__%_gc : $(TESTS_DIR)/__%.c %.c $(NON_M_OBJECTS)
 	@$(CC) -o __$* $(patsubst %$*.o,, $^) -lcriterion $(C_FLAGS) $(L_FLAGS) $(COV_FLAGS)
 	@./__$* && gcov -k $*
 

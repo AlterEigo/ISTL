@@ -14,6 +14,6 @@ observable_t *obs_create();
 void obs_free(observable_t **obsp_p);
 int obs_subscribe(observable_t *obs, void *obsr, obs_callback_ft callback);
 int obs_notify(observable_t *obs, void *obsr, int sig);
-int obs_unsubscribe(observable_t * obs, void * obsr);
+int obs_unsubscribe(observable_t *obs, void *obsr);
 
 #endif

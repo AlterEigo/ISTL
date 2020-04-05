@@ -23,10 +23,11 @@ observable_t *obs_create()
 
 void obs_free(observable_t **obs_p)
 {
-    observable_t *obs = (*obs_p);
+    observable_t *obs = NULL;
 
     if (obs_p == NULL || (*obs_p) == NULL)
         return;
+    obs = (*obs_p);
     list_free(&obs->subscribers);
     free(obs);
 }
@@ -58,6 +59,22 @@ int obs_notify(observable_t *obs_p, void *robs, int sig)
     for (; !list_final(obs_p->subscribers, it); it = it_next(it)) {
         obsr = list_data(it);
         obsr->callback(obsr->ptr, robs, sig);
+    }
+    return (0);
+}
+
+int obs_unsubscribe(observable_t *obs_p, void *obsr_p)
+{
+    iterator_t it;
+    observer_t *obsr = NULL;
+
+    if (obs_p == NULL || obsr_p == NULL)
+        return (-1);
+    it = list_begin(obs_p->subscribers);
+    for (; !list_final(obs_p->subscribers, it); it = it_next(it)) {
+        obsr = list_data(it);
+        if (obsr->ptr == obsr_p)
+            list_pull(obs_p->subscribers, it);
     }
     return (0);
 }
