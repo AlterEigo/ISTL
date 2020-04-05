@@ -97,6 +97,7 @@ SOURCES_LIST		=		list_1.c \
 					utility_1.c \
 					utility_2.c \
 					utility_3.c \
+					utility_4.c \
 					cubic_bezier.c \
 					iterator_1.c \
 					iterator_2.c \
