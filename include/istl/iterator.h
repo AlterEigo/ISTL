@@ -28,6 +28,7 @@ typedef struct Iterator {
     struct Iterator *next;
     struct Iterator *prior;
 } iterator_t;
+typedef struct Iterator (itr_t);
 
 /*!
     Creates an iterator **without** allocating it
