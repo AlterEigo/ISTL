@@ -27,6 +27,7 @@ typedef struct Iterator {
     unsigned long long hash;
     struct Iterator *next;
     struct Iterator *prior;
+    struct Iterator *first;
 } iterator_t;
 typedef struct Iterator (itr_t);
 

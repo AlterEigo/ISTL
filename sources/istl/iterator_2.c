@@ -20,6 +20,7 @@ iterator_t it_create(void *data, unsigned int sizeof_data)
     unsigned long long id = get_unique_id();
     iterator_t it;
 
+    it.first = NULL;
     it.data = data;
     it.data_size = sizeof_data;
     it.hash = id;
@@ -35,6 +36,7 @@ iterator_t *it_allocate(void *data, unsigned int sizeof_data)
     iterator_t *it = malloc(sizeof(iterator_t));
 
     *it = it_create(data, sizeof_data);
+    it->first = it;
     return (it);
 }
 

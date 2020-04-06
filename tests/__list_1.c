@@ -63,7 +63,9 @@ Test(list_sort, sort_integer_list)
     list_sort(list, sort_int_list);
     it = it_next(list_begin(list));
     for (; !list_final(list, it); it = it_next(it)) {
-        if (sort_int_list(it_back(it), it) == TRUE)
-            cr_fatal("Wrong list's sorting operation.");
+        if (sort_int_list(it_back(it), it) == TRUE) {
+            cr_fail("Wrong list's sorting operation.");
+            cr_log_warn("Iteration : %lld\n", it_distance(list_begin(list), it));
+        }
     }
 }

@@ -10,11 +10,21 @@
 
 void it_swap(iterator_t *lhs, iterator_t *rhs)
 {
+    iterator_t *olhs = NULL;
+    iterator_t *orhs = NULL;
+    void *data = NULL;
+
     if (lhs == 0 || rhs == 0)
         return;
-    void *data = lhs->data;
+    data = lhs->data;
     lhs->data = rhs->data;
     rhs->data = data;
+    olhs = lhs->first;
+    orhs = rhs->first;
+    if (olhs == NULL || orhs == NULL)
+        return;
+    olhs->data = lhs->data;
+    orhs->data = rhs->data;
 }
 
 bool_t it_reach(iterator_t lhs, iterator_t rhs)

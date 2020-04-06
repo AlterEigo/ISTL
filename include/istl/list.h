@@ -163,7 +163,7 @@ void *list_pull(list_t *list, iterator_t it);
     \todo Check internal behaviour and give better
     description
 */
-void list_iswap(iterator_t *lhs, iterator_t *rhs);
+void list_iswap(iterator_t lhs, iterator_t rhs);
 
 /*!
     Allocates new list and copies each and every element

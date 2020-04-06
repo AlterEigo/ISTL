@@ -26,15 +26,9 @@ void list_revert(list_t *list)
         list_push_back(list, list_data(it));
 }
 
-void list_iswap(iterator_t *lhs, iterator_t *rhs)
+void list_iswap(iterator_t lhs, iterator_t rhs)
 {
-    void *data = 0;
-
-    if (lhs == 0 || rhs == 0)
-        return;
-    data = list_data(*lhs);
-    lhs->data = list_data(*rhs);
-    rhs->data = data;
+    it_swap(&lhs, &rhs);
 }
 
 void list_sort(list_t *list, compare_ft cmp_fp)
@@ -51,7 +45,7 @@ void list_sort(list_t *list, compare_ft cmp_fp)
         for (; !it_eq(it_back(*i), *j); j = n) {
             n = it_get_next(j);
             if (cmp_fp(*j, *n) == TRUE)
-                list_iswap(n, j);
+                it_swap(n, j);
         }
     }
 }
