@@ -38,19 +38,20 @@ void list_iswap(iterator_t *lhs, iterator_t *rhs)
 }
 
 void list_sort(list_t *list, compare_ft cmp_fp)
-{   
-    iterator_t it;
-    iterator_t end;
-    iterator_t nxt;
+{
+    itr_t *i = NULL;
+    itr_t *j = NULL;
+    itr_t *n = NULL;
 
     if (list == NULL || cmp_fp == NULL || list_len(list) < 1)
         return;
-    it = list_begin(list);
-    end = it_back(list_end(list));
-    nxt = it_next(it);
-    for (; !it_eq(it, end); it = nxt) {
-        if (cmp_fp(it, it_next(it)) == TRUE)
-            list_iswap(&it, &nxt);
-        nxt = it_next(it);
+    i = list_get_end(list);
+    for (; !it_eq(*i, list_begin(list)); i = it_get_prior(i)) {
+        j = list_get_begin(list);
+        for (; !it_eq(it_back(*i), *j); j = n) {
+            n = it_get_next(j);
+            if (cmp_fp(*j, *n) == TRUE)
+                list_iswap(n, j);
+        }
     }
 }
