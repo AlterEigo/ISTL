@@ -27,7 +27,6 @@ iterator_t it_create(void *data, unsigned int sizeof_data)
     it.next = 0;
     it.prior = 0;
     it.layer_id = id;
-    id += 1;
     return (it);
 }
 
@@ -35,8 +34,14 @@ iterator_t *it_allocate(void *data, unsigned int sizeof_data)
 {
     iterator_t *it = malloc(sizeof(iterator_t));
 
-    *it = it_create(data, sizeof_data);
+    // *it = it_create(data, sizeof_data);
     it->first = it;
+    it->data = data;
+    it->data_size = sizeof_data;
+    it->hash = get_unique_id();
+    it->next = NULL;
+    it->prior = NULL;
+    it->layer_id = it->hash;
     return (it);
 }
 

@@ -40,6 +40,7 @@ typedef struct Iterator (itr_t);
     iterator. It may be useless since an iterator is
     **not** responsible of it's data.
 */
+__attribute__((deprecated("Use it_allocate instead.")))
 iterator_t it_create(void *data, unsigned int sizeof_data);
 
 /*!
