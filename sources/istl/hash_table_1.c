@@ -11,7 +11,6 @@
 static hash_value_t hash_str_data(cchar_t str, uint_t len)
 {
     hash_value_t hash = 47441;
-    char c;
 
     for (uint_t i = 0; i < len; i++)
         hash = ((hash << 5) + hash) + str[i];

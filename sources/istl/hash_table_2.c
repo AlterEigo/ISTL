@@ -75,8 +75,6 @@ void *map_erase(map_t *map, hash_value_t key, hash_value_t sign)
     list_t *list = 0;
     iterator_t it;
     ht_item_t *item = 0;
-    void *data = 0;
-    hash_value_t dhash;
 
     if (map == 0)
         return (0);

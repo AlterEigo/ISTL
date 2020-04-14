@@ -62,7 +62,6 @@ list_t *list_copy(list_t *list)
 void list_merge(list_t *lhs, list_t *rhs)
 {
     iterator_t begin;
-    void *data = 0;
 
     if (lhs == 0 || rhs == 0)
         return;
