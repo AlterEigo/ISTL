@@ -169,7 +169,7 @@ valgrind:
 	@valgrind $(VALGRIND_FLAGS) ./$(TARGET_NAME) $(VALGRIND_INJECT)
 
 
-tarball: all $(TARBALL)
+tarball: $(TARBALL)
 
 
 directories: | $(SOURCE_DIR) $(OBJECT_DIR)
@@ -205,7 +205,7 @@ $(TARGET_NAME): $(OBJECTS)
 $(DEP_FILE): $(SOURCES_LIST)
 	@echo -e "--- \e[32mCreating dependency file\e[39m : '\e[34m$@\e[39m' ---"
 	@touch $(DEP_FILE) && echo "ISTL_DIR = istl" > $(DEP_FILE)
-	@echo "ISTL_MODULE = $(patsubst %main.c,,$(SOURCES_LIST))" >> $(DEP_FILE)
+	@echo "ISTL_MODULE = $(SOURCES_LIST)" >> $(DEP_FILE)
 
 
 $(TARBALL): $(DEP_FILE) $(SOURCES_LIST) $(HEADER_DIR)
