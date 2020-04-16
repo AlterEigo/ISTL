@@ -64,8 +64,15 @@ void pnode_free(pnode_t **node_p)
 
 int pnode_advance(pnode_t *node, list_t *list)
 {
+    pnode_t *c = NULL;
+
     if (node == NULL || list == NULL)
         return (0);
-    // Implement
-    return (0);
+    for (uint_t i = 0; i < node->namount; i++) {
+        c = pnode_copy(node->near[i].epoint);
+        c->score += node->near[i].score;
+        list_push_back(list, c);
+        pnode_free(&c);
+    }
+    return (node->namount);
 }
