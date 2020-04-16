@@ -12,7 +12,7 @@ Test(pnode_advance, argument_checks)
 Test(pnode_advance, filling_argument_list)
 {
     list_t *args = list_create(MB_PNODE);
-    pnode_t *node = pnode_create(0, 5, FALSE);
+    pnode_t *node = pnode_create(0, 5);
     pnode_t *ref = NULL;
     iterator_t it;
 

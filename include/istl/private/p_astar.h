@@ -16,6 +16,7 @@ typedef struct Bridge {
 
 typedef struct PathNode {
     unsigned int id;
+    struct PathNode *from;
     int score;
     bool_t goal;
     unsigned int namount;
@@ -23,5 +24,7 @@ typedef struct PathNode {
 } (pnode_t);
 
 int pnode_advance(pnode_t *node, list_t *list);
+pnode_t *pnode_backtrace(pnode_t *node, list_t *nodes);
+bool_t pnode_further_then(iterator_t lhs, iterator_t rhs);
 
 #endif

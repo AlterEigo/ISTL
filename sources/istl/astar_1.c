@@ -13,13 +13,14 @@ const mdata_t MB_PNODE = {
     .data_size = sizeof(pnode_t)
 };
 
-pnode_t *pnode_create(unsigned int id, int score, bool_t final)
+pnode_t *pnode_create(unsigned int id, int score)
 {
     pnode_t *pnode = malloc(sizeof(pnode_t));
 
     pnode->id = id;
+    pnode->from = NULL;
     pnode->score = score;
-    pnode->goal = final;
+    pnode->goal = FALSE;
     pnode->near = NULL;
     pnode->namount = 0;
     return (pnode);
@@ -65,14 +66,22 @@ void pnode_free(pnode_t **node_p)
 int pnode_advance(pnode_t *node, list_t *list)
 {
     pnode_t *c = NULL;
+    int ret = 0;
 
     if (node == NULL || list == NULL)
         return (0);
+    ret = node->namount;
     for (uint_t i = 0; i < node->namount; i++) {
+        c = node->near[i].epoint;
+        if (node->from != NULL && c->id == node->from->id) {
+            ret -= 1;
+            continue;
+        }
         c = pnode_copy(node->near[i].epoint);
         c->score += node->near[i].score;
+        c->from = node;
         list_push_back(list, c);
         pnode_free(&c);
     }
-    return (node->namount);
+    return (ret);
 }

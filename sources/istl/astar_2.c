@@ -7,6 +7,14 @@
 #include <stdlib.h>
 #include "istl/private/p_astar.h"
 
+int pnode_set_final(pnode_t *node, bool_t val)
+{
+    if (node == NULL)
+        return (-1);
+    node->goal = val;
+    return (0);
+}
+
 int pnode_link(pnode_t *lhs, pnode_t * rhs, int dist)
 {
     bridge_t link;
@@ -33,4 +41,35 @@ int pnode_detach(pnode_t *node)
     if (node->near != NULL)
         free(node->near);
     return (0);
+}
+
+pnode_t *pnode_backtrace(pnode_t *node, list_t *nodes)
+{
+    if (node == NULL)
+        return (NULL);
+    if (nodes != NULL) {
+        list_push_back(nodes, node);
+        pnode_backtrace(node->from, nodes);
+    }
+    return (node->from);
+}
+
+list_t *astar_navigate(pnode_t *startpoint)
+{
+    list_t *f = NULL;
+    list_t *s = NULL;
+    iterator_t it;
+    pnode_t *node = NULL;
+
+    if (startpoint == NULL)
+        return (NULL);
+    if (pnode_advance(startpoint, f) == 0)
+        return (NULL);
+    f = list_create(MB_PNODE);
+    s = list_create(MB_PNODE);
+    it = list_begin(f);
+    for (; !list_final(f, it); it = it_next(it)) {
+        node = it_data(it);
+    }
+    return (NULL);
 }
