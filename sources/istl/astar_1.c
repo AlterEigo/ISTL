@@ -6,6 +6,7 @@
 */
 #include <stdlib.h>
 #include "istl/private/p_astar.h"
+#include "istl/shared_ptr.h"
 
 const mdata_t MB_PNODE = {
     .copy = pnode_copy,
@@ -15,7 +16,7 @@ const mdata_t MB_PNODE = {
 
 pnode_t *pnode_create(unsigned int id, int score)
 {
-    pnode_t *pnode = malloc(sizeof(pnode_t));
+    pnode_t *pnode = shared_ptr(MB_PNODE);
 
     pnode->id = id;
     pnode->from = NULL;
@@ -34,7 +35,8 @@ void *pnode_copy(void const *node_p)
 
     if (node == NULL)
         return (NULL);
-    nnode = mem_copy(node, sizeof(pnode_t));
+    nnode = shared_ptr(MB_PNODE);
+    *nnode = *node;
     if (node->near != NULL) {
         nnode->near = mem_copy(node->near, sizeof(bridge_t) * node->namount);
         nnode->namount = node->namount;
@@ -58,9 +60,9 @@ void pnode_free(pnode_t **node_p)
     if (node_p == NULL || (*node_p) == NULL)
         return;
     node = (*node_p);
-    if (node->near != NULL)
-        free(node->near);
-    free(node);
+    pnode_detach(node);
+    if (node->from != NULL)
+        sdel(&node->from);
     (*node_p) = NULL;
 }
 
@@ -70,7 +72,7 @@ int pnode_advance(pnode_t *node, list_t *list)
     int ret = 0;
 
     if (node == NULL || list == NULL)
-        return (0);
+        return (-1);
     ret = node->namount;
     for (uint_t i = 0; i < node->namount; i++) {
         c = node->near[i].epoint;
@@ -81,9 +83,9 @@ int pnode_advance(pnode_t *node, list_t *list)
         c = pnode_copy(node->near[i].epoint);
         c->cost += node->cost;
         c->score += c->cost;
-        c->from = node;
+        c->from = spcopy(node);
         list_push_back(list, c);
-        pnode_free(&c);
+        sdel(&c);
     }
     return (ret);
 }

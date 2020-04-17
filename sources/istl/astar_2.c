@@ -6,6 +6,7 @@
 */
 #include <stdlib.h>
 #include "istl/private/p_astar.h"
+#include "istl/shared_ptr.h"
 #include "istl/hash_table.h"
 
 int pnode_set_final(pnode_t *node, bool_t val)
@@ -26,21 +27,29 @@ int pnode_link(pnode_t *lhs, pnode_t * rhs, int dist)
     lhs->namount += 1;
     near = malloc(sizeof(bridge_t) * lhs->namount);
     link.score = dist;
-    link.epoint = rhs;
+    link.epoint = spcopy(rhs);
     near[0] = link;
     for (uint_t i = 1; i < lhs->namount; i++)
         near[i] = lhs->near[i - 1];
-    pnode_detach(lhs);
+    if (lhs->near != NULL)
+        free(lhs->near);
     lhs->near = near;
     return (0);
 }
 
 int pnode_detach(pnode_t *node)
 {
+    pnode_t *lam = NULL;
+
     if (node == NULL)
         return (-1);
-    if (node->near != NULL)
-        free(node->near);
+    if (node->near == NULL)
+        return (0);
+    for (uint_t i = 0; i < node->namount; i++) {
+        lam = node->near[i].epoint;
+        sdel(&lam);
+    }
+    free(node->near);
     return (0);
 }
 
@@ -55,8 +64,6 @@ pnode_t *pnode_backtrace(pnode_t *node, list_t *nodes)
     return (node->from);
 }
 
-#include <stdio.h>
-
 list_t *astar_navigate(pnode_t *startpoint)
 {
     list_t *f = NULL;
@@ -66,7 +73,7 @@ list_t *astar_navigate(pnode_t *startpoint)
     if (startpoint == NULL)
         return (NULL);
     f = list_create(MB_PNODE);
-    if (pnode_advance(startpoint, f) == 0)
+    if (pnode_advance(startpoint, f) < 1)
         return (NULL);
     while (list_len(f) != 0) {
         node = list_pull(f, list_begin(f));
@@ -75,7 +82,7 @@ list_t *astar_navigate(pnode_t *startpoint)
             pnode_backtrace(node, found);
             return (found);
         }
-        if (pnode_advance(node, f) != 0)
+        if (pnode_advance(node, f) > 0)
             list_sort(f, pnode_further_then);
     }
     return (NULL);
