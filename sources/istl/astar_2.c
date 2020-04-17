@@ -60,7 +60,6 @@ pnode_t *pnode_backtrace(pnode_t *node, list_t *nodes)
 list_t *astar_navigate(pnode_t *startpoint)
 {
     list_t *f = NULL;
-    iterator_t it;
     pnode_t *node = NULL;
     list_t *found = NULL;
 
@@ -69,23 +68,15 @@ list_t *astar_navigate(pnode_t *startpoint)
     f = list_create(MB_PNODE);
     if (pnode_advance(startpoint, f) == 0)
         return (NULL);
-    it = list_begin(f);
-    while (!list_final(f, it)) {
-        //if (node != NULL)
-        //    pnode_free(&node);
-        node = list_pull(f, it);
+    while (list_len(f) != 0) {
+        node = list_pull(f, list_begin(f));
         if (node->goal == TRUE) {
             found = list_create(MB_PNODE);
             pnode_backtrace(node, found);
             return (found);
         }
-        if (pnode_advance(node, f) != 0) {
+        if (pnode_advance(node, f) != 0)
             list_sort(f, pnode_further_then);
-            list_for(f, pnode_print);
-            it = list_begin(f);
-            continue;
-        }
-        it = it_next(it);
     }
     return (NULL);
 }
