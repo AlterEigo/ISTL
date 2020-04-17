@@ -20,6 +20,7 @@ pnode_t *pnode_create(unsigned int id, int score)
     pnode->id = id;
     pnode->from = NULL;
     pnode->score = score;
+    pnode->cost = 0;
     pnode->goal = FALSE;
     pnode->near = NULL;
     pnode->namount = 0;
@@ -78,7 +79,8 @@ int pnode_advance(pnode_t *node, list_t *list)
             continue;
         }
         c = pnode_copy(node->near[i].epoint);
-        c->score += node->near[i].score;
+        c->cost += node->cost;
+        c->score += c->cost;
         c->from = node;
         list_push_back(list, c);
         pnode_free(&c);

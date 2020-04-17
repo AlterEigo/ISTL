@@ -45,7 +45,7 @@ pnode_t *get_node_web(void)
 
     pnode_link(web[6], web[0], 4);
     pnode_link(web[6], web[4], 4);
-    return (NULL);
+    return (web[0]);
 }
 
 Test(astar_navigate, find_shortest_path)
@@ -62,6 +62,6 @@ Test(astar_navigate, find_shortest_path)
     for (int i = 0; !list_final(nodes, it); it = it_next(it), i++) {
         pnode_t *d = it_data(it);
         cr_assert(i != 4, "A* did not found the optimal path.");
-        cr_expect(d->id == eids[i]);
+        cr_expect(d->id == eids[i], "Expected id : '%d' Got : '%d'", eids[i], d->id);
     }
 }
