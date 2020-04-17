@@ -49,3 +49,14 @@ void list_sort(list_t *list, compare_ft cmp_fp)
         }
     }
 }
+
+void list_for(list_t *list, foreach_ft cb)
+{
+    iterator_t it;
+
+    if (list == NULL || cb == NULL)
+        return;
+    it = list_begin(list);
+    for (; !list_final(list, it); it = it_next(it))
+        cb(it_data(it));
+}

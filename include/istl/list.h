@@ -18,6 +18,7 @@ extern const meta_bundle_t MB_PTR;
 extern const meta_bundle_t MB_BOOL;
 
 typedef bool_t (*compare_ft)(iterator_t lhs, iterator_t rhs);
+typedef void (*foreach_ft)(void *data);
 
 /*!
     \brief Bidirectional linked list class
@@ -188,6 +189,8 @@ void list_revert(list_t *list);
 void list_free(list_t **plist);
 
 void list_sort(list_t *list, compare_ft);
+
+void list_for(list_t *list, foreach_ft);
 
 /*!
     Returns a copy of the entire list as an array of
