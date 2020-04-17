@@ -21,6 +21,18 @@ void *shared_ptr(mdata_t tmeta)
     return (mcell->data);
 }
 
+bool_t is_shared(void *ptr)
+{
+    mcell_t *mcell = NULL;
+
+    if (ptr == NULL)
+        return (FALSE);
+    mcell = get_mcell(&ptr);
+    if (mcell->data != ptr)
+        return (FALSE);
+    return (TRUE);
+}
+
 void *spcopy(void *ptr)
 {
     mcell_t *mcell = get_mcell(&ptr);
