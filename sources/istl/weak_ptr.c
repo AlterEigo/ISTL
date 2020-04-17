@@ -26,6 +26,19 @@ wptr_t make_weak(void *sp)
     return (wp);
 }
 
+wptr_t wpcopy(wptr_t ptr)
+{
+    void *data = NULL;
+    wptr_t ret = NULL;
+
+    if (ptr == NULL || !wptr_valid(ptr))
+        return (NULL);
+    data = wptr_lock(ptr);
+    ret = make_weak(data);
+    sdel(&data);
+    return (ret);
+}
+
 void *wptr_lock(wptr_t ptr)
 {
     mcell_t *wp = ptr;

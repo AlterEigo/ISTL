@@ -11,12 +11,12 @@
 
 typedef struct Bridge {
     int score;
-    pnode_t *epoint;
+    wptr_t dest;
 } (bridge_t);
 
 typedef struct PathNode {
     unsigned int id;
-    struct PathNode *from;
+    wptr_t from;
     int score;
     int cost;
     bool_t goal;
@@ -25,8 +25,11 @@ typedef struct PathNode {
 } (pnode_t);
 
 int pnode_advance(pnode_t *node, list_t *list);
-pnode_t *pnode_backtrace(pnode_t *node, list_t *nodes);
+void pnode_backtrace(pnode_t *node, list_t *nodes);
 bool_t pnode_further_then(iterator_t lhs, iterator_t rhs);
+bool_t pnode_comes_from(pnode_t const *lhs, pnode_t const *rhs);
+
+bridge_t *bridge_cpy_array(bridge_t const*, uint_t len);
 
 void pnode_print(void *);
 

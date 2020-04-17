@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include "istl/private/p_astar.h"
 #include "istl/shared_ptr.h"
+#include "istl/weak_ptr.h"
 #include "istl/hash_table.h"
 
 int pnode_set_final(pnode_t *node, bool_t val)
@@ -27,7 +28,7 @@ int pnode_link(pnode_t *lhs, pnode_t * rhs, int dist)
     lhs->namount += 1;
     near = malloc(sizeof(bridge_t) * lhs->namount);
     link.score = dist;
-    link.epoint = spcopy(rhs);
+    link.dest = make_weak(rhs);
     near[0] = link;
     for (uint_t i = 1; i < lhs->namount; i++)
         near[i] = lhs->near[i - 1];
@@ -40,28 +41,32 @@ int pnode_link(pnode_t *lhs, pnode_t * rhs, int dist)
 int pnode_detach(pnode_t *node)
 {
     pnode_t *lam = NULL;
+    wptr_t *wp = NULL;
 
     if (node == NULL)
         return (-1);
     if (node->near == NULL)
         return (0);
     for (uint_t i = 0; i < node->namount; i++) {
-        lam = node->near[i].epoint;
-        sdel(&lam);
+        wp = node->near[i].dest;
+        sdel(&wp);
     }
     free(node->near);
     return (0);
 }
 
-pnode_t *pnode_backtrace(pnode_t *node, list_t *nodes)
+void pnode_backtrace(pnode_t *node, list_t *nodes)
 {
+    pnode_t *from = NULL;
+
     if (node == NULL)
-        return (NULL);
+        return;
     if (nodes != NULL) {
         list_push_front(nodes, node);
-        pnode_backtrace(node->from, nodes);
+        from = wptr_lock(node->from);
+        pnode_backtrace(from, nodes);
+        sdel(&from);
     }
-    return (node->from);
 }
 
 list_t *astar_navigate(pnode_t *startpoint)
@@ -82,8 +87,8 @@ list_t *astar_navigate(pnode_t *startpoint)
             pnode_backtrace(node, found);
             return (found);
         }
-        if (pnode_advance(node, f) > 0)
-            list_sort(f, pnode_further_then);
+        pnode_advance(node, f);
+        list_sort(f, pnode_further_then);
     }
     return (NULL);
 }

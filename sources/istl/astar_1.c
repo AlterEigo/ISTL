@@ -6,6 +6,7 @@
 */
 #include <stdlib.h>
 #include "istl/private/p_astar.h"
+#include "istl/weak_ptr.h"
 #include "istl/shared_ptr.h"
 
 const mdata_t MB_PNODE = {
@@ -37,8 +38,9 @@ void *pnode_copy(void const *node_p)
         return (NULL);
     nnode = shared_ptr(MB_PNODE);
     *nnode = *node;
+    nnode->from = wpcopy(node->from);
     if (node->near != NULL) {
-        nnode->near = mem_copy(node->near, sizeof(bridge_t) * node->namount);
+        nnode->near = bridge_cpy_array(node->near, node->namount);
         nnode->namount = node->namount;
     }
     return (nnode);
@@ -69,23 +71,24 @@ void pnode_free(pnode_t **node_p)
 int pnode_advance(pnode_t *node, list_t *list)
 {
     pnode_t *c = NULL;
+    pnode_t *from = NULL;
     int ret = 0;
 
     if (node == NULL || list == NULL)
         return (-1);
-    ret = node->namount;
+    from = wptr_lock(node->from);
     for (uint_t i = 0; i < node->namount; i++) {
-        c = node->near[i].epoint;
-        if (node->from != NULL && c->id == node->from->id) {
-            ret -= 1;
+        c = wptr_lock(node->near[i].dest);
+        if (c == NULL || (from != NULL && c->id == from->id))
             continue;
-        }
-        c = pnode_copy(node->near[i].epoint);
+        c = pnode_copy(c);
         c->cost += node->cost;
         c->score += c->cost;
-        c->from = spcopy(node);
+        c->from = make_weak(node);
         list_push_back(list, c);
+        ret += 1;
         sdel(&c);
+        sdel(&from);
     }
     return (ret);
 }
