@@ -76,7 +76,11 @@ list_t *astar_navigate(pnode_t *startpoint)
 
     if (startpoint == NULL)
         return (NULL);
-    f = list_create(MB_PNODE);
+    f = list_create((mdata_t) {
+            .copy = spcopy,
+            .destroy = spdestroy,
+            .data_size = sizeof(mcell_t) + sizeof(pnode_t)
+            });
     if (pnode_advance(startpoint, f) < 1)
         return (NULL);
     while (list_len(f) != 0) {

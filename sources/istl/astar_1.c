@@ -80,11 +80,13 @@ int pnode_advance(pnode_t *node, list_t *list)
         spdestroy(c);
         c = NULL;
         lock = wptr_lock(node->near[i].dest);
-        if (lock == NULL || (node->from != NULL && lock->id == node->from->id))
+        if (lock == NULL || (node->from != NULL && lock->id == node->from->id)) {
+            spdestroy(lock);
             continue;
+        }
         c = pnode_copy(lock);
         spdestroy(lock);
-        c->cost += node->cost;
+        c->cost = node->near[i].score + node->cost;
         c->score += c->cost;
         c->from = spcopy(node);
         list_push_back(list, c);
