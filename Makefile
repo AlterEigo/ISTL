@@ -71,7 +71,7 @@ SOURCE_DIR			=	sources
 OBJECT_DIR			=	objects
 HEADER_DIR			=	include
 TESTS_DIR			=	tests
-DEP_FILE			=	$(SOURCE_DIR)/istl_sources.d
+DEP_FILE			=	$(SOURCE_DIR)/.istl_sources.d
 TARBALL				=	istl.tar.gz
 GDB_ARGV			=
 
