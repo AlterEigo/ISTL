@@ -83,7 +83,11 @@ list_t *astar_navigate(pnode_t *startpoint)
         node = list_pull(f, list_begin(f));
         if (node->goal == TRUE) {
             list_free(&f);
-            f = list_create(MB_PNODE);
+            f = list_create((mdata_t) {
+                    .copy = spcopy,
+                    .destroy = spdestroy,
+                    .data_size = sizeof(mcell_t) + sizeof(pnode_t)
+                    });
             pnode_backtrace(node, f);
             sdel(&node);
             return (f);

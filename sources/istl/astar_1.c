@@ -71,22 +71,25 @@ void pnode_free(pnode_t **node_p)
 int pnode_advance(pnode_t *node, list_t *list)
 {
     pnode_t *c = NULL;
+    pnode_t *lock = NULL;
     int ret = 0;
 
     if (node == NULL || list == NULL)
         return (-1);
     for (uint_t i = 0; i < node->namount; i++) {
-        sdel(&c);
-        c = wptr_lock(node->near[i].dest);
-        if (c == NULL || (node->from != NULL && c->id == node->from->id))
+        spdestroy(c);
+        c = NULL;
+        lock = wptr_lock(node->near[i].dest);
+        if (lock == NULL || (node->from != NULL && lock->id == node->from->id))
             continue;
-        c = pnode_copy(c);
+        c = pnode_copy(lock);
+        spdestroy(lock);
         c->cost += node->cost;
         c->score += c->cost;
         c->from = spcopy(node);
         list_push_back(list, c);
         ret += 1;
     }
-    sdel(&c);
+    spdestroy(c);
     return (ret);
 }

@@ -33,7 +33,7 @@ bool_t is_shared(void *ptr)
     return (TRUE);
 }
 
-void *spcopy(void *ptr)
+void *spcopy(void const *ptr)
 {
     mcell_t *mcell = get_mcell(&ptr);
 
@@ -52,4 +52,10 @@ uint_t ref_count(void *ptr)
     if (mcell->count != NULL)
         return (*mcell->count);
     return (0);
+}
+
+void spdestroy(void *ptr)
+{
+    if (ptr != NULL)
+        sdel(&ptr);
 }

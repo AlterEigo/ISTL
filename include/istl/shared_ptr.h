@@ -11,7 +11,8 @@
 #include "istl/utility.h"
 
 void *shared_ptr(mdata_t tmeta);
-void *spcopy(void *ptr);
+void *spcopy(void const *ptr);
+void spdestroy(void *ptr);
 uint_t ref_count(void *ptr);
 bool_t is_shared(void *ptr);
 
