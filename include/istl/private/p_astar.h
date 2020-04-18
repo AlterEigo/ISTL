@@ -16,7 +16,7 @@ typedef struct Bridge {
 
 typedef struct PathNode {
     unsigned int id;
-    wptr_t from;
+    pnode_t *from;
     int score;
     int cost;
     bool_t goal;

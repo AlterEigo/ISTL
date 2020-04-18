@@ -32,8 +32,7 @@ int pnode_link(pnode_t *lhs, pnode_t * rhs, int dist)
     near[0] = link;
     for (uint_t i = 1; i < lhs->namount; i++)
         near[i] = lhs->near[i - 1];
-    if (lhs->near != NULL)
-        free(lhs->near);
+    free(lhs->near);
     lhs->near = near;
     return (0);
 }
@@ -52,6 +51,8 @@ int pnode_detach(pnode_t *node)
         sdel(&wp);
     }
     free(node->near);
+    node->near = NULL;
+    node->namount = 0;
     return (0);
 }
 
@@ -63,9 +64,8 @@ void pnode_backtrace(pnode_t *node, list_t *nodes)
         return;
     if (nodes != NULL) {
         list_push_front(nodes, node);
-        from = wptr_lock(node->from);
-        pnode_backtrace(from, nodes);
-        sdel(&from);
+        if(node->from != NULL)
+            pnode_backtrace(node->from, nodes);
     }
 }
 
@@ -73,7 +73,6 @@ list_t *astar_navigate(pnode_t *startpoint)
 {
     list_t *f = NULL;
     pnode_t *node = NULL;
-    list_t *found = NULL;
 
     if (startpoint == NULL)
         return (NULL);
@@ -83,12 +82,16 @@ list_t *astar_navigate(pnode_t *startpoint)
     while (list_len(f) != 0) {
         node = list_pull(f, list_begin(f));
         if (node->goal == TRUE) {
-            found = list_create(MB_PNODE);
-            pnode_backtrace(node, found);
-            return (found);
+            list_free(&f);
+            f = list_create(MB_PNODE);
+            pnode_backtrace(node, f);
+            sdel(&node);
+            return (f);
         }
         pnode_advance(node, f);
+        sdel(&node);
         list_sort(f, pnode_further_then);
     }
+    list_free(&f);
     return (NULL);
 }

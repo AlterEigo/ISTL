@@ -38,7 +38,7 @@ void *pnode_copy(void const *node_p)
         return (NULL);
     nnode = shared_ptr(MB_PNODE);
     *nnode = *node;
-    nnode->from = wpcopy(node->from);
+    nnode->from = (node->from == NULL) ? NULL : spcopy(node->from);
     if (node->near != NULL) {
         nnode->near = bridge_cpy_array(node->near, node->namount);
         nnode->namount = node->namount;
@@ -71,24 +71,22 @@ void pnode_free(pnode_t **node_p)
 int pnode_advance(pnode_t *node, list_t *list)
 {
     pnode_t *c = NULL;
-    pnode_t *from = NULL;
     int ret = 0;
 
     if (node == NULL || list == NULL)
         return (-1);
-    from = wptr_lock(node->from);
     for (uint_t i = 0; i < node->namount; i++) {
+        sdel(&c);
         c = wptr_lock(node->near[i].dest);
-        if (c == NULL || (from != NULL && c->id == from->id))
+        if (c == NULL || (node->from != NULL && c->id == node->from->id))
             continue;
         c = pnode_copy(c);
         c->cost += node->cost;
         c->score += c->cost;
-        c->from = make_weak(node);
+        c->from = spcopy(node);
         list_push_back(list, c);
         ret += 1;
-        sdel(&c);
-        sdel(&from);
     }
+    sdel(&c);
     return (ret);
 }
