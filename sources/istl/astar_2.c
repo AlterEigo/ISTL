@@ -8,7 +8,8 @@
 #include "istl/private/p_astar.h"
 #include "istl/shared_ptr.h"
 #include "istl/weak_ptr.h"
-#include "istl/hash_table.h"
+
+#include "static_astar_1.c"
 
 int pnode_set_final(pnode_t *node, bool_t val)
 {
@@ -76,22 +77,14 @@ list_t *astar_navigate(pnode_t *startpoint)
 
     if (startpoint == NULL)
         return (NULL);
-    f = list_create((mdata_t) {
-            .copy = spcopy,
-            .destroy = spdestroy,
-            .data_size = sizeof(mcell_t) + sizeof(pnode_t)
-            });
+    f = list_create(MB_SPTR);
     if (pnode_advance(startpoint, f) < 1)
         return (NULL);
     while (list_len(f) != 0) {
         node = list_pull(f, list_begin(f));
         if (node->goal == TRUE) {
             list_free(&f);
-            f = list_create((mdata_t) {
-                    .copy = spcopy,
-                    .destroy = spdestroy,
-                    .data_size = sizeof(mcell_t) + sizeof(pnode_t)
-                    });
+            f = list_create(MB_SPTR);
             pnode_backtrace(node, f);
             sdel(&node);
             return (f);

@@ -88,6 +88,7 @@ struct MetaBundle {
 typedef struct MetaBundle (meta_bundle_t);
 typedef struct MetaBundle (mdata_t);
 
+extern const meta_bundle_t MB_SPTR;
 extern const meta_bundle_t MB_INT;
 extern const meta_bundle_t MB_FLOAT;
 extern const meta_bundle_t MB_DOUBLE;

@@ -5,6 +5,7 @@
 ** Description
 */
 #include "istl/common_types.h"
+#include "istl/shared_ptr.h"
 #include <stdlib.h>
 
 const meta_bundle_t MB_INT = {0, 0, sizeof(int)};
@@ -13,6 +14,10 @@ const meta_bundle_t MB_DOUBLE = {0, 0, sizeof(double)};
 const meta_bundle_t MB_CHAR = {0, 0, sizeof(char)};
 const meta_bundle_t MB_PTR = {0, 0, sizeof(int *)};
 const meta_bundle_t MB_BOOL = {0, 0, sizeof(bool_t)};
+const meta_bundle_t MB_SPTR = (mdata_t){
+    .copy = spcopy,
+    .destroy = spdestroy
+};
 const vec2_t V_NULL = {.x = 0, .y = 0};
 
 
