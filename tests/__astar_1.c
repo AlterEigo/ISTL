@@ -6,7 +6,7 @@ Test(pnode_advance, argument_checks)
 {
     int res = pnode_advance(NULL, NULL);
 
-    cr_expect(res == 0);
+    cr_expect(res == -1);
 }
 
 Test(pnode_advance, filling_argument_list)
