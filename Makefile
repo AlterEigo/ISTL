@@ -117,7 +117,8 @@ SOURCES_LIST		=		list_1.c \
 					observable_1.c \
 					astar_1.c \
 					astar_2.c \
-					astar_3.c
+					astar_3.c \
+					astar_4.c
 LIBRARY			=
 
 
