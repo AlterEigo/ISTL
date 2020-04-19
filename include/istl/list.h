@@ -181,6 +181,8 @@ list_t *list_splice(list_t *list, iterator_t begin, iterator_t end);
 */
 void list_revert(list_t *list);
 
+void list_drop(list_t *list);
+
 /*!
     Takes a double pointer on a list and frees all the
     memory, thus each and every element. Deep free depends

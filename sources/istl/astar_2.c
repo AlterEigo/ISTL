@@ -83,8 +83,9 @@ list_t *astar_navigate(pnode_t *startpoint)
     while (list_len(f) != 0) {
         node = list_pull(f, list_begin(f));
         if (node->goal == TRUE) {
-            list_free(&f);
-            f = list_create(MB_SPTR);
+            //list_free(&f);
+            //f = list_create(MB_SPTR);
+            list_drop(f);
             pnode_backtrace(node, f);
             sdel(&node);
             return (f);

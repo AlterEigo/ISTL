@@ -30,12 +30,15 @@ void list_push_front(list_t *list, void *data)
 
 void list_pop_back(list_t *list)
 {
-    iterator_t *prior = 0;
-    iterator_t *it = 0;
-    void *data = 0;
+    iterator_t *prior = NULL;
+    iterator_t *it = NULL;
+    void *data = NULL;
 
-    if (list == 0 || list->size < 1)
+    if (list == NULL || list->size < 2) {
+        if (list_len(list) == 1)
+            list_pop_front(list);
         return;
+    }
     it = it_get_prior(list->end);
     prior = it_get_prior(it);
     it_couple(prior, list->end);

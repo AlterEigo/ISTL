@@ -60,3 +60,11 @@ void list_for(list_t *list, foreach_ft cb)
     for (; !list_final(list, it); it = it_next(it))
         cb(it_data(it));
 }
+
+void list_drop(list_t *list)
+{
+    if (list == NULL)
+        return;
+    while (list_len(list) > 0)
+        list_pop_back(list);
+}
