@@ -73,27 +73,15 @@ void pnode_backtrace(pnode_t *node, list_t *nodes)
 list_t *astar_navigate(pnode_t *startpoint)
 {
     list_t *f = NULL;
-    pnode_t *node = NULL;
 
     if (startpoint == NULL)
         return (NULL);
     f = list_create(MB_SPTR);
     if (pnode_advance(startpoint, f) < 1)
         return (NULL);
-    while (list_len(f) != 0) {
-        node = list_pull(f, list_begin(f));
-        if (node->goal == TRUE) {
-            //list_free(&f);
-            //f = list_create(MB_SPTR);
-            list_drop(f);
-            pnode_backtrace(node, f);
-            sdel(&node);
+    while (list_len(f) != 0)
+        if (astar_step(f) == TRUE)
             return (f);
-        }
-        pnode_advance(node, f);
-        sdel(&node);
-        list_sort(f, pnode_further_then);
-    }
     list_free(&f);
     return (NULL);
 }
