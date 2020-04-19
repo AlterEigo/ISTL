@@ -50,7 +50,7 @@ void list_sort(list_t *list, compare_ft cmp_fp)
     }
 }
 
-void list_for(list_t *list, foreach_ft cb)
+void list_foreach(list_t *list, foreach_ft cb)
 {
     iterator_t it;
 

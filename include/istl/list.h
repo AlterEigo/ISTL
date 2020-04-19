@@ -192,7 +192,7 @@ void list_free(list_t **plist);
 
 void list_sort(list_t *list, compare_ft);
 
-void list_for(list_t *list, foreach_ft);
+void list_foreach(list_t *list, foreach_ft);
 
 /*!
     Returns a copy of the entire list as an array of

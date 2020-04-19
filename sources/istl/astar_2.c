@@ -65,7 +65,7 @@ void pnode_backtrace(pnode_t *node, list_t *nodes)
         return;
     if (nodes != NULL) {
         list_push_front(nodes, node);
-        if(node->from != NULL)
+        if (node->from != NULL)
             pnode_backtrace(node->from, nodes);
     }
 }

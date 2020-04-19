@@ -9,6 +9,8 @@
 #include "istl/weak_ptr.h"
 #include "istl/shared_ptr.h"
 
+#include "static_astar_1.c"
+
 const mdata_t MB_PNODE = {
     .copy = pnode_copy,
     .destroy = pnode_destroy,
@@ -71,21 +73,15 @@ void pnode_free(pnode_t **node_p)
 int pnode_advance(pnode_t *node, list_t *list)
 {
     pnode_t *c = NULL;
-    pnode_t *lock = NULL;
     int ret = 0;
 
     if (node == NULL || list == NULL)
         return (-1);
     for (uint_t i = 0; i < node->namount; i++) {
         spdestroy(c);
-        c = NULL;
-        lock = wptr_lock(node->near[i].dest);
-        if (lock == NULL || (node->from != NULL && lock->id == node->from->id)) {
-            spdestroy(lock);
+        c = pnode_copy_unexplored(node, i);
+        if (c == NULL)
             continue;
-        }
-        c = pnode_copy(lock);
-        spdestroy(lock);
         c->cost = node->near[i].score + node->cost;
         c->score += c->cost;
         c->from = spcopy(node);
