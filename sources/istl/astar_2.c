@@ -9,7 +9,7 @@
 #include "istl/shared_ptr.h"
 #include "istl/weak_ptr.h"
 
-#include "static_astar_1.c"
+#include "static_astar_2.c"
 
 int pnode_set_final(pnode_t *node, bool_t val)
 {
