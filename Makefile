@@ -85,6 +85,8 @@ vpath %.c $(SOURCE_DIR)/istl
 
 
 MAIN_SOURCE		=		main.c
+STATIC_SOURCES		=		static_astar_1.c \
+					static_astar_2.c
 SOURCES_LIST		=		list_1.c \
 					list_2.c \
 					list_3.c \
@@ -211,7 +213,7 @@ $(DEP_FILE): $(SOURCES_LIST)
 	@echo "ISTL_MODULE = $(SOURCES_LIST)" >> $(DEP_FILE)
 
 
-$(TARBALL): $(DEP_FILE) $(SOURCES_LIST) $(HEADER_DIR)
+$(TARBALL): $(DEP_FILE) $(SOURCES_LIST) $(STATIC_SOURCES) $(HEADER_DIR)
 	@echo -e "--- \e[32mCreating ISTL tarball\e[39m : '\e[34m$@\e[39m' ---"
 	@tar czf $(TARBALL) $^
 	@echo -e "--- \e[32mDone\e[39m ---"
