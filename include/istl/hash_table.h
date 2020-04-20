@@ -25,7 +25,7 @@ typedef struct HashTableItem {
 
 ht_item_t *ht_item_create(hash_value_t key, void *value); //!< \internal
 void ht_item_free(ht_item_t **item); //!< \internal
-void *ht_item_copy(void const* item); //!< \internal
+void *ht_item_copy(void const *item); //!< \internal
 void ht_item_destroy(void *item); //!< \internal
 
 extern const meta_bundle_t MB_HT_ITEM; //!< HashMap type's infos

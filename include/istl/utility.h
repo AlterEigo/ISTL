@@ -14,8 +14,8 @@
 
 typedef struct HashMap (map_t);
 
-#define GR_START 0x01
-#define GR_END 0x02
+#define GR_START (0x01)
+#define GR_END (0x02)
 
 typedef union UniType {
     int i_num;

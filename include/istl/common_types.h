@@ -10,10 +10,10 @@
 #include <curses.h>
 
 /*!
- *  \brief Variable attribute allowing to autofree a pointer
- *  \details If the pointer was allocated with **snew**, allows to
- *  automatically call a destructor upon it (if any stored in it's **mtype_t**
- * */
+ \brief Variable attribute allowing to autofree a pointer
+ \details If the pointer was allocated with **snew**, allows to
+ automatically call a destructor upon it (if any stored in it's **mtype_t**
+*/
 #define SMART __attribute__((cleanup(sdel)))
 
 // typedef enum {FALSE = 0, TRUE = 1} (bool_t);    //!< Boolean typedef
@@ -25,20 +25,20 @@ typedef unsigned char (byte_t);         //!< Byte typedef
 typedef char const* (cchar_t);          //!< Constant C string typedef
 
 /*!
-    \brief Copy constructor prototype
-    \details Any type intended to be stored in the provided data
-    container should implement a copy constructor to prevent any
-    problems related to an object's shallow copy.
+ \brief Copy constructor prototype
+ \details Any type intended to be stored in the provided data
+ container should implement a copy constructor to prevent any
+ problems related to an object's shallow copy.
 */
 typedef void *(*cpy_constructor_ft)(void const* poriginal);
 typedef void *(*ctor_ft)(void const* poriginal);
 
 /*!
-    \brief Destructor prototype
-    \details Any type intended to be stored in the provided data
-    container should not only implement a copy constructor, but also
-    a destructor to ensure full object's deep free and to prevent
-    any memory leak due to the storage in such structure.
+ \brief Destructor prototype
+ \details Any type intended to be stored in the provided data
+ container should not only implement a copy constructor, but also
+ a destructor to ensure full object's deep free and to prevent
+ any memory leak due to the storage in such structure.
 */
 typedef void (*destructor_ft)(void *pdata);
 typedef void (*dtor_ft)(void *pdata);
@@ -47,11 +47,11 @@ typedef enum SPTR_TYPE {SP_UNIQUE, SP_SHARED, SP_WEAK} sptrt_t;
 
 typedef void* (wptr_t);
 /*!
- *  \brief Extended allocated memory block
- *  \details This structure is for internal use only:
- *  alloc functions use it to stock an object's destructor
- *  right before the memory block itself
- * */
+ \brief Extended allocated memory block
+ \details This structure is for internal use only:
+ alloc functions use it to stock an object's destructor
+ right before the memory block itself
+*/
 typedef struct ExMemCell {
     sptrt_t type;
     uint_t *count;

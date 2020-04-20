@@ -131,11 +131,11 @@ CC			=	gcc
 C_FLAGS			=	-W -Wall -Wextra -Werror \
 				-I$(HEADER_DIR) \
 				-Wno-switch \
-				-Wno-unused-variable \
-				-Wno-unused-parameter \
-				-Wno-unused-but-set-variable \
-				-Wno-unused-but-set-parameter \
-				-Wno-unused-function \
+			#-Wno-unused-variable \
+			#-Wno-unused-parameter \
+			#-Wno-unused-but-set-variable \
+			#-Wno-unused-but-set-parameter \
+			#-Wno-unused-function \
 				$(C_FLAGS_INPUT)
 L_FLAGS			=	$(L_FLAGS_INPUT)
 COV_FLAGS		=	-fprofile-arcs -ftest-coverage

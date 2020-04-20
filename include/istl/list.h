@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2019
-** Mon titre 
+** Mon titre
 ** File description:
-** Description 
+** Description
 */
 #ifndef IS_CHAINED_LIST_H_INCLUDED
 #define IS_CHAINED_LIST_H_INCLUDED

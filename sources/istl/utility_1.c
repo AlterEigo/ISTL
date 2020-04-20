@@ -9,7 +9,7 @@
 #include "istl/hash_table.h"
 #include <stdlib.h>
 
-const meta_bundle_t MB_UTYPE = (meta_bundle_t){0, 0, sizeof(utype_t)};
+const meta_bundle_t MB_UTYPE = {0, 0, sizeof(utype_t)};
 const fnode_t REGEX_UINT[] = {
         {.cset = "+-", .ps = 0, .ns = 1, .fs = FALSE, .flags = 0x01},
         {.cset = "0123456789", .ps = 0, .ns = 2, .fs = TRUE, .flags = 0x01},
