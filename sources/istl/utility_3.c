@@ -20,28 +20,7 @@ bool_t fnode_null(fnode_t const *node)
     res = (node->ps != -1) ? FALSE : res;
     res = (node->ns != -1) ? FALSE : res;
     res = (node->fs != FALSE) ? FALSE : res;
-    res = (node->flags != 0) ? FALSE : res;
     return (res);
-}
-
-bool_t fnode_gstart(fnode_t const *node)
-{
-    char sflag = GR_START;
-
-    if (node == NULL)
-        return (FALSE);
-    sflag &= node->flags;
-    return (sflag);
-}
-
-bool_t fnode_gend(fnode_t const *node)
-{
-    char rflag = GR_END;
-
-    if (node == NULL)
-        return (FALSE);
-    rflag &= node->flags;
-    return (rflag);
 }
 
 bool_t regex_extract(cchar_t str, fnode_t const *const pattern, map_t *grp)

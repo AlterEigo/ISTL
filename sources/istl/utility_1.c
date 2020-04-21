@@ -11,13 +11,13 @@
 
 const meta_bundle_t MB_UTYPE = {0, 0, sizeof(utype_t)};
 const fnode_t REGEX_UINT[] = {
-        {.cset = "+-", .ps = 0, .ns = 1, .fs = FALSE, .flags = 0x01, .gwl = 1, .gwr = 2},
-        {.cset = "0123456789", .ps = 0, .ns = 2, .fs = TRUE, .flags = 0x01, .gwl = 2, .gwr = 3},
-        {.cset = "0123456789", .ps = 1, .ns = 2, .fs = TRUE, .flags = 0x03, .gwl = 2, .gwr = 3},
-        {.cset = "0123456789", .ps = 2, .ns = 2, .fs = TRUE, .flags = 0x0, .gwl = 2, .gwr = 3},
-        {.cset = ".", .ps = 2, .ns = 3, .fs = TRUE, .flags = 0x02, .gwl = 3, .gwr = 3},
-        {.cset = "0", .ps = 3, .ns = 3, .fs = TRUE, .flags = 0x0, .gwl = 3, .gwr = 3},
-        {.cset = NULL, .ps = -1, .ns = -1, .fs = FALSE, .flags = 0x0, .gwl = 3, .gwr = 3}
+        {.cset = "+-", .ps = 0, .ns = 1, .fs = FALSE, .gwl = 1, .gwr = 2},
+        {.cset = "0123456789", .ps = 0, .ns = 2, .fs = TRUE, .gwl = 2, .gwr = 3},
+        {.cset = "0123456789", .ps = 1, .ns = 2, .fs = TRUE, .gwl = 2, .gwr = 3},
+        {.cset = "0123456789", .ps = 2, .ns = 2, .fs = TRUE, .gwl = 2, .gwr = 3},
+        {.cset = ".", .ps = 2, .ns = 3, .fs = TRUE, .gwl = 3, .gwr = 3},
+        {.cset = "0", .ps = 3, .ns = 3, .fs = TRUE, .gwl = 3, .gwr = 3},
+        {.cset = NULL, .ps = -1, .ns = -1, .fs = FALSE, .gwl = 3, .gwr = 3}
 };
 
 uint_t expect_uint(uint_t val, uint_t lhs, uint_t rhs)

@@ -14,9 +14,6 @@
 
 typedef struct HashMap (map_t);
 
-#define GR_START (0x01)
-#define GR_END (0x02)
-
 typedef union UniType {
     int i_num;
     float f_num;
@@ -29,7 +26,6 @@ typedef struct FaNode {
     int ps;         //! Passing state index
     int ns;         //! Next state index
     bool_t fs;      //! Is final
-    char flags;     //! What is that?
     int gwl;        //! Group window left
     int gwr;        //! Group window right
 } fnode_t;
@@ -52,8 +48,6 @@ uint_t expect_uint(uint_t val, uint_t lhs, uint_t rhs);
 bool_t str_contains(cchar_t set, char c);
 bool_t str_uint(cchar_t str);
 bool_t fnode_null(fnode_t const *);
-bool_t fnode_gstart(fnode_t const *);
-bool_t fnode_gend(fnode_t const *);
 fnode_t const *regex_forward(char, const fnode_t[], int *);
 bool_t regex_extract(cchar_t str, fnode_t const *const pattern, map_t *grp);
 
