@@ -41,6 +41,6 @@ bool_t regex_extract(cchar_t str, fnode_t const *const pattern, map_t *grp)
         }
     }
     if (final != TRUE)
-        map_free(&grp);
+        map_drop(grp);
     return (final);
 }

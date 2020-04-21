@@ -30,8 +30,10 @@ typedef struct FaNode {
     int gwr;        //! Group window right
 } fnode_t;
 
+extern const char CSET_ALPHA[];
 extern const meta_bundle_t MB_UTYPE;
 extern const fnode_t REGEX_UINT[];
+extern const fnode_t REGEX_OPT[];
 
 void utility_set_var(char const *, utype_t);
 void *utility_get_var(char const *);
