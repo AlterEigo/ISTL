@@ -9,32 +9,9 @@
 #include "istl/hash_table.h"
 #include <stdlib.h>
 
+#include "regex_const.c"
+
 const meta_bundle_t MB_UTYPE = {0, 0, sizeof(utype_t)};
-const fnode_t FNODE_NULL = {.cset = NULL, .ps = -1, .ns = -1, .fs = FALSE };
-const char CSET_ALPHA[] = {
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
-    'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-    'w', 'x', 'y', 'z',
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
-    'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
-    'W', 'X', 'Y', 'Z', '\0'
-};
-const fnode_t REGEX_UINT[] = {
-    {.cset = "+-", .ps = 0, .ns = 1, .fs = FALSE, .gwl = 1, .gwr = 2},
-    {.cset = "0123456789", .ps = 0, .ns = 2, .fs = TRUE, .gwl = 2, .gwr = 3},
-    {.cset = "0123456789", .ps = 1, .ns = 2, .fs = TRUE, .gwl = 2, .gwr = 3},
-    {.cset = "0123456789", .ps = 2, .ns = 2, .fs = TRUE, .gwl = 2, .gwr = 3},
-    {.cset = ".", .ps = 2, .ns = 3, .fs = TRUE, .gwl = 3, .gwr = 3},
-    {.cset = "0", .ps = 3, .ns = 3, .fs = TRUE, .gwl = 3, .gwr = 3},
-    FNODE_NULL
-};
-const fnode_t REGEX_OPT[] = {
-    {.cset = "-", .ps = 0, .ns = 1, .fs = FALSE, .gwl = 0, .gwr = 0},
-    {.cset = "-", .ps = 1, .ns = 2, .fs = FALSE, .gwl = 0, .gwr = 0},
-    {.cset = CSET_ALPHA, .ps = 1, .ns = 3, .fs = TRUE, .gwl = 1, .gwr = 2},
-    {.cset = CSET_ALPHA, .ps = 2, .ns = 2, .fs = TRUE, .gwl = 2, .gwr = 3},
-    FNODE_NULL
-};
 
 uint_t expect_uint(uint_t val, uint_t lhs, uint_t rhs)
 {
@@ -64,7 +41,7 @@ fnode_t const *regex_forward(char c, const fnode_t arr[], int *state_p)
     for (uint_t i = 0; !fnode_null(arr + i); i++) {
         if (arr[i].ps != *state_p)
             continue;
-        if (str_contains(arr[i].cset, c)) {
+        if (str_contains(arr[i].cset, c) || regex_wild(arr + i)) {
             nstate = arr[i].ns;
             node_p = arr + i;
         }

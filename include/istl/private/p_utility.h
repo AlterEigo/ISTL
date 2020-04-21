@@ -13,4 +13,6 @@
 map_t *global_manager(int sig);
 void regex_extract_char(char, fnode_t const*, map_t *);
 
+extern const char RC_WILD[];
+
 #endif

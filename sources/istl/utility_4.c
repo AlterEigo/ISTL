@@ -34,3 +34,12 @@ void regex_extract_char(
             i += 1;
     } while (i < node_p->gwr);
 }
+
+bool_t regex_wild(fnode_t const *node)
+{
+    if (node == NULL)
+        return (FALSE);
+    if (node->cset == RC_WILD)
+        return (TRUE);
+    return (FALSE);
+}
