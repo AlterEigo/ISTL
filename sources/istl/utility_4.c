@@ -26,6 +26,7 @@ void regex_extract_char(
         tmp = str_addch(str_p, chr);
         str_free(&str_p);
         map_insert(grp, i, tmp);
+        str_free(&tmp);
         if (!set) {
             set = TRUE;
             i = node_p->gwl;
