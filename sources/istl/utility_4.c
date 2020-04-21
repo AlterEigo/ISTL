@@ -11,7 +11,7 @@
 #include <stdlib.h>
 
 void regex_adjust_stack(
-        fnode_t const * node_p,
+        fnode_t const *node_p,
         int groups[],
         int *glen,
         int *idx)

@@ -40,7 +40,6 @@ int pnode_link(pnode_t *lhs, pnode_t * rhs, int dist)
 
 int pnode_detach(pnode_t *node)
 {
-    pnode_t *lam = NULL;
     wptr_t *wp = NULL;
 
     if (node == NULL)
@@ -59,8 +58,6 @@ int pnode_detach(pnode_t *node)
 
 void pnode_backtrace(pnode_t *node, list_t *nodes)
 {
-    pnode_t *from = NULL;
-
     if (node == NULL)
         return;
     if (nodes != NULL) {

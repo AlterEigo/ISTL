@@ -25,11 +25,13 @@ typedef union UniType {
 } utype_t;
 
 typedef struct FaNode {
-    cchar_t cset;
-    int ps;
-    int ns;
-    bool_t fs;
-    char flags;
+    cchar_t cset;   //! Passing characters' set
+    int ps;         //! Passing state index
+    int ns;         //! Next state index
+    bool_t fs;      //! Is final
+    char flags;     //! What is that?
+    int gwl;        //! Group window left
+    int gwr;        //! Group window right
 } fnode_t;
 
 extern const meta_bundle_t MB_UTYPE;
