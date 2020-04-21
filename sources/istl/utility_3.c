@@ -13,13 +13,14 @@
 bool_t fnode_null(fnode_t const *node)
 {
     bool_t res = TRUE;
+    const fnode_t *const ref = &FNODE_NULL;
 
     if (node == NULL)
         return (FALSE);
-    res = (node->cset != NULL) ? FALSE : res;
-    res = (node->ps != -1) ? FALSE : res;
-    res = (node->ns != -1) ? FALSE : res;
-    res = (node->fs != FALSE) ? FALSE : res;
+    res = (node->cset != ref->cset) ? FALSE : res;
+    res = (node->ps != ref->ps) ? FALSE : res;
+    res = (node->ns != ref->ns) ? FALSE : res;
+    res = (node->fs != ref->fs) ? FALSE : res;
     return (res);
 }
 
