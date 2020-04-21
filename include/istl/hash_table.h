@@ -82,6 +82,7 @@ list_t *map_get_all(map_t *map, hash_value_t);
 void *map_pull(map_t *map, hash_value_t);
 void *map_erase(map_t *map, hash_value_t, hash_value_t);
 void const *map_cget(map_t const map, hash_value_t);
+void map_drop(map_t *map);
 
 void map_free(map_t **map);
 

@@ -35,3 +35,14 @@ void *map_erase_item(
     }
     return (NULL);
 }
+
+void map_drop(map_t *map)
+{
+    uint_t size;
+
+    if (map == NULL)
+        return;
+    size = map->array_size;
+    for (uint_t i = 0; i < size; i++)
+        list_drop(map->data_table[i]);
+}
