@@ -10,36 +10,26 @@
 #include "istl/string.h"
 #include <stdlib.h>
 
-void regex_adjust_stack(
-        fnode_t const *node_p,
-        int groups[],
-        int *glen,
-        int *idx)
-{
-    if (fnode_gend(node_p)) {
-        groups[(*glen) - 1] = 0;
-        (*glen) -= 1;
-    }
-    if (fnode_gstart(node_p)) {
-        (*glen) += 1;
-        groups[(*glen) - 1] = (*idx);
-        (*idx) += 1;
-    }
-}
-
 void regex_extract_char(
         char chr,
-        const int groups[],
-        int glen,
+        fnode_t const *node_p,
         map_t *grp)
 {
     string_t *str_p = NULL;
     string_t *tmp = NULL;
+    int i = 0;
+    bool_t set = FALSE;
 
-    for (int j = 0; j < glen; j++) {
-        str_p = (grp == NULL) ? NULL : map_pull(grp, groups[j]);
+    do {
+        str_p = (grp == NULL) ? NULL : map_pull(grp, i);
+        str_p = (str_p == NULL) ? str_create("") : str_p;
         tmp = str_addch(str_p, chr);
         str_free(&str_p);
-        map_insert(grp, groups[j], tmp);
-    }
+        map_insert(grp, i, tmp);
+        if (!set) {
+            set = TRUE;
+            i = node_p->gwl;
+        } else
+            i += 1;
+    } while (i < node_p->gwr);
 }

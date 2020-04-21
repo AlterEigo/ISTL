@@ -50,8 +50,6 @@ bool_t regex_extract(cchar_t str, fnode_t const *const pattern, map_t *grp)
     fnode_t const *node_p = NULL;
     bool_t final = FALSE;
     int idx = 1;
-    int groups[20] = {0};
-    int glen = 1;
 
     if (str == NULL || pattern == NULL)
         return (FALSE);
@@ -60,9 +58,10 @@ bool_t regex_extract(cchar_t str, fnode_t const *const pattern, map_t *grp)
         node_p = regex_forward(str[i], pattern, &state);
         if (node_p != NULL) {
             final = node_p->fs;
-            regex_adjust_stack(node_p, groups, &glen, &idx);
-            regex_extract_char(str[i], groups, glen, grp);
+            regex_extract_char(str[i], node_p, grp);
         }
     }
+    if (final != TRUE)
+        map_free(&grp);
     return (final);
 }
