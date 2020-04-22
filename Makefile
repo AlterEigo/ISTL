@@ -71,7 +71,7 @@ SOURCE_DIR			=	sources
 OBJECT_DIR			=	objects
 HEADER_DIR			=	include
 TESTS_DIR			=	tests
-DEP_FILE			=	$(SOURCE_DIR)/.istl_sources.d
+DEP_FILE			=	$(SOURCE_DIR)/Makefile.istl_sources
 TARBALL				=	istl.tar.gz
 GDB_ARGV			=
 
@@ -86,7 +86,8 @@ vpath %.c $(SOURCE_DIR)/istl
 
 MAIN_SOURCE		=		main.c
 STATIC_SOURCES		=		static_astar_1.c \
-					static_astar_2.c
+					static_astar_2.c \
+					regex_const.c
 SOURCES_LIST		=		list_1.c \
 					list_2.c \
 					list_3.c \
