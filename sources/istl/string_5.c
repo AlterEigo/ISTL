@@ -34,7 +34,7 @@ void str_free(string_t **pstr)
     *pstr = 0;
 }
 
-void str_strip(string_t **str_p, char c)
+void str_strip(string_t **str_p)
 {
     uint_t left = 0;
     uint_t right = 0;
