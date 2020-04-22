@@ -47,10 +47,10 @@ const fnode_t REGEX_OPT[] = {
     FNODE_NULL
 };
 const fnode_t REGEX_CMD[] = {
-    {.cset = RC_WILD, .ps = 0, .ns = 1, .fs = FALSE, .gwl = 1, .gwr = 2},
     {.cset = " \t", .ps = 0, .ns = 0, .fs = FALSE, .gwl = 0, .gwr = 0},
+    {.cset = RC_WILD, .ps = 0, .ns = 1, .fs = TRUE, .gwl = 1, .gwr = 2},
     {.cset = RC_WILD, .ps = 1, .ns = 1, .fs = TRUE, .gwl = 1, .gwr = 2},
-    {.cset = " \t", .ps = 1, .ns = 2, .fs = FALSE, .gwl = 2, .gwr = 2},
+    {.cset = " \t", .ps = 1, .ns = 2, .fs = TRUE, .gwl = 2, .gwr = 2},
     {.cset = RC_WILD, .ps = 2, .ns = 2, .fs = TRUE, .gwl = 2, .gwr = 3},
     {.cset = "|", .ps = 1, .ns = 3, .fs = FALSE, .gwl = 3, .gwr = 4},
     {.cset = "&;", .ps = 1, .ns = 3, .fs = TRUE, .gwl = 3, .gwr = 4},
