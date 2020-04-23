@@ -30,6 +30,7 @@ typedef struct FaNode {
     int gwr;        //! Group window right
 } fnode_t;
 
+extern const char RC_WILD[];
 extern const char CSET_ALPHA[];
 extern const meta_bundle_t MB_UTYPE;
 extern const fnode_t FNODE_NULL;
