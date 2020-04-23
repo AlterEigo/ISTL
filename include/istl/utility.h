@@ -32,6 +32,7 @@ typedef struct FaNode {
 
 extern const char RC_WILD[];
 extern const char CSET_ALPHA[];
+extern const char CSET_ANUM[];
 extern const meta_bundle_t MB_UTYPE;
 extern const fnode_t FNODE_NULL;
 extern const fnode_t REGEX_UINT[];
