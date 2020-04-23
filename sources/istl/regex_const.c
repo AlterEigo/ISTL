@@ -8,7 +8,6 @@
 #include "istl/private/p_utility.h"
 
 const char RC_WILD[] = {'\0'};
-const fnode_t FNODE_NULL = {.cset = NULL, .ps = -1, .ns = -1, .fs = FALSE };
 const char CSET_ALPHA[] = {
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
     'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
