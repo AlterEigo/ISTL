@@ -33,6 +33,7 @@ bool_t regex_extract(cchar_t str, fnode_t const *const pattern, map_t *grp)
 
     if (str == NULL || pattern == NULL)
         return (FALSE);
+    map_drop(grp);
     for (uint_t i = 0; str[i] != 0; i++) {
         final = FALSE;
         node_p = regex_forward(str[i], pattern, &state);

@@ -11,6 +11,8 @@
 
 cchar_t str_cstr(string_t const *str)
 {
+    if (str == NULL)
+        return (NULL);
     return (cchar_t)(str->cstr);
 }
 

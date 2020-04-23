@@ -50,3 +50,13 @@ void str_strip(string_t **str_p)
     str_free(&str);
     *str_p = tmp;
 }
+
+void str_replace(string_t *str, char a, char b)
+{
+    if (str == NULL || str_cstr(str) == NULL)
+        return;
+    for (uint_t i = 0; i < str_len(str); i++) {
+        if (str_cstr(str)[i] == a)
+            str->cstr[i] = b;
+    }
+}

@@ -36,6 +36,7 @@ extern const fnode_t FNODE_NULL;
 extern const fnode_t REGEX_UINT[];
 extern const fnode_t REGEX_OPT[];
 extern const fnode_t REGEX_CMD[];
+extern const fnode_t REGEX_CMD_ARG[];
 
 void utility_set_var(char const *, utype_t);
 void *utility_get_var(char const *);

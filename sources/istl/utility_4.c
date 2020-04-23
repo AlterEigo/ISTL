@@ -20,6 +20,8 @@ void regex_extract_char(
     int i = 0;
     bool_t set = FALSE;
 
+    if (grp == NULL)
+        return;
     do {
         str_p = (grp == NULL) ? NULL : map_pull(grp, i);
         str_p = (str_p == NULL) ? str_create("") : str_p;

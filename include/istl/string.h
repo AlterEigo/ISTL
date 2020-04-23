@@ -37,6 +37,7 @@ uint_t str_len(string_t const *str);
 uint_t str_count(string_t const *str, char c);
 void str_pick(string_t **rstr, char c);
 void str_strip(string_t **rstr);
+void str_replace(string_t *str, char a, char b);
 list_t *str_split(string_t const *str, char c);
 list_t *str_nsplit(string_t const *str, char c, uint_t count);
 
