@@ -75,6 +75,15 @@ DEP_FILE			=	$(SOURCE_DIR)/Makefile.istl_sources
 TARBALL				=	istl.tar.gz
 GDB_ARGV			=
 
+
+# Erasing all useless makefile built-in rules
+# (needed to avoid automatic *.o build)
+.SUFFIXES :
+
+# Telling makefile not to erase *.d files
+# automatically
+.PRECIOUS : $(OBJECT_DIR)/%.d
+
 vpath %.c $(SOURCE_DIR)
 vpath %.c $(SOURCE_DIR)/istl
 
@@ -244,7 +253,11 @@ __%_gc : $(TESTS_DIR)/__%.c %.c $(NON_M_OBJECTS)
 	@./__$* && gcov -k $*
 
 
-$(OBJECT_DIR)/%.o : %.c
+$(OBJECT_DIR)/%.d : %.c
+	@$(CC) -MT $(OBJECT_DIR)/$*.o -MM -MF $@ $< $(C_FLAGS)
+
+
+$(OBJECT_DIR)/%.o : %.c $(OBJECT_DIR)/%.d
 	@$(CC) -c -o $@ $< $(C_FLAGS)
 	@echo -e "--- '\e[34m$@\e[39m'\t\e[32mSUCCESSFULLY COMPILED\e[39m ---"
 
@@ -257,3 +270,5 @@ $(OBJECT_DIR)/%_cov.o : %.c
 __%.o : __%.c
 	@$(CC) -c -o $(OBJECT_DIR)/$@ $< $(C_FLAGS) -lcriterion
 
+
+include $(wildcard $(OBJECT_DIR)/*.d)
