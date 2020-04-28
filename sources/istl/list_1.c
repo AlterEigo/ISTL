@@ -41,6 +41,8 @@ void list_sort(list_t *list, compare_ft cmp_fp)
         return;
     i = list_get_end(list);
     for (; !it_eq(*i, list_begin(list)); i = it_get_prior(i)) {
+        if (!it_eq(*i, list_end(list)) && cmp_fp(*i, it_back(*i)) == FALSE)
+            continue;
         j = list_get_begin(list);
         for (; !it_eq(it_back(*i), *j); j = n) {
             n = it_get_next(j);
