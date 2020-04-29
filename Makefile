@@ -102,6 +102,11 @@ SOURCES_LIST		=		list_1.c \
 					list_3.c \
 					list_4.c \
 					list_5.c \
+					vector_1.c \
+					vector_2.c \
+					vector_3.c \
+					vector_4.c \
+					vector_5.c \
 					hash_table_1.c \
 					hash_table_2.c \
 					hash_table_3.c \
