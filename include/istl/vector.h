@@ -15,6 +15,11 @@ void vector_free(vector_t **vec);
 void vector_destroy(void *);
 void *vector_copy(void const *);
 
-int vector_set(vector_t *, uint_t, void const *);
+vector_t *vector_set(vector_t *, uint_t, void const *);
+void *vector_get(vector_t *, uint_t);
+void const *vector_cget(vector_t const *, uint_t);
+uint_t vector_len(vector_t const *);
+
+vector_t *vector_push(vector_t *, void const *);
 
 #endif

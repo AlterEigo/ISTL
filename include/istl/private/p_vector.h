@@ -18,6 +18,7 @@ typedef struct Vector {
     void **data;
     uint_t size;
     uint_t capacity;
+    mdata_t tmeta;
 } (vector_t);
 
 #endif
