@@ -41,11 +41,12 @@ void vector_destroy(void *vec_p)
 
     if (vec == NULL)
         return;
-    for (uint_t i = 0; i < vector_len(vec); i++)
+    for (uint_t i = 0; i < vec->capacity; i++)
         if (vec->tmeta.destroy == NULL)
             free(vec->data[i]);
         else
             vec->tmeta.destroy(vec->data[i]);
+    free(vec->data);
 }
 
 void *vector_copy(void const *vec_p)
