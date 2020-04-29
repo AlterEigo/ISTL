@@ -11,6 +11,10 @@ vector_t *vector_set(vector_t *vec, uint_t idx, void const *cdata)
 {
     if (vec == NULL || idx > vector_len(vec))
         return (NULL);
+    if (cdata == NULL) {
+        vec->data[idx] = NULL;
+        return (vec);
+    }
     if (vec->tmeta.copy == NULL)
         vec->data[idx] = mem_copy(cdata, vec->tmeta.data_size);
     else

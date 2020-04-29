@@ -72,3 +72,16 @@ Test(vector_push, vector_push_back)
     len = vector_len(vec1);
     cr_expect(*(int*)vector_get(vec1, len - 1) == 51);
 }
+
+Test(vector_pop, vector_pop_back)
+{
+    vector_t *vec1 = create_full_vector(10);
+
+    cr_assert(vec1 != NULL);
+    cr_expect(vector_pop(vec1));
+    cr_expect(vector_len(vec1) == 9);
+    cr_expect(vector_pop(vec1));
+    cr_expect(vector_len(vec1) == 8);
+    cr_expect(vector_pop(vec1));
+    cr_expect(vector_len(vec1) == 7);
+}
