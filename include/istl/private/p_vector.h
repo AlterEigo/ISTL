@@ -21,4 +21,6 @@ typedef struct Vector {
     mdata_t tmeta;
 } (vector_t);
 
+uint_t vector_expand(vector_t *vec);
+
 #endif

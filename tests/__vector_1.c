@@ -33,7 +33,8 @@ Test(vector_essentials, essentials_vector_tests)
     vector_free(&vec);
     vec = create_full_vector(50);
     cr_assert(vec != NULL);
-    cr_expect(vector_len(vec) == 50);
+    cr_expect(vector_len(vec) == 50,
+            "Expected : '%d', but got '%d'", 50, vector_len(vec));
     spdestroy(vec);
 }
 
@@ -66,8 +67,8 @@ Test(vector_push, vector_push_back)
     cr_expect(*(int*)vector_get(vec1, len - 1) == 47);
     vector_push(vec1, (int[]) {49});
     len = vector_len(vec1);
-    cr_expect(*(int*)vector_get(vec1, len - 1) == 47);
+    cr_expect(*(int*)vector_get(vec1, len - 1) == 49);
     vector_push(vec1, (int[]) {51});
     len = vector_len(vec1);
-    cr_expect(*(int*)vector_get(vec1, len - 1) == 47);
+    cr_expect(*(int*)vector_get(vec1, len - 1) == 51);
 }

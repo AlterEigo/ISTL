@@ -50,5 +50,18 @@ void vector_destroy(void *vec_p)
 
 void *vector_copy(void const *vec_p)
 {
-    return (NULL);
+    vector_t *copy = NULL;
+    vector_t const *vec = vec_p;
+    void **data = NULL;
+
+    if (vec_p == NULL)
+        return (NULL);
+    copy = shared_ptr(MB_VECTOR);
+    copy->tmeta = vec->tmeta;
+    copy->size = 0;
+    copy->capacity = vec->capacity;
+    copy->data = malloc(sizeof(void *) * copy->capacity);
+    for (uint_t i = 0; i < vector_len(vec); i++)
+        vector_push(copy, vector_cget(vec, i));
+    return (copy);
 }
