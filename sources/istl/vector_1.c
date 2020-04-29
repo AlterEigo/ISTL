@@ -65,3 +65,30 @@ void *vector_copy(void const *vec_p)
         vector_push(copy, vector_cget(vec, i));
     return (copy);
 }
+
+void *vector_pull(vector_t *vec, uint_t idx)
+{
+    void *data = NULL;
+
+    if (vec == NULL)
+        return (NULL);
+    data = vector_get(vec, idx);
+    if (data != NULL)
+        vector_set(vec, idx, NULL);
+    return (data);
+}
+
+vector_t *vector_pop(vector_t *vec)
+{
+    void *data = NULL;
+
+    if (vec == NULL)
+        return (NULL);
+    data = vector_pull(vec, vector_len(vec) - 1);
+    vec->size -= 1;
+    if (vec->tmeta.destroy != NULL)
+        vec->tmeta.destroy(data);
+    else
+        free(data);
+    return (vec);
+}
