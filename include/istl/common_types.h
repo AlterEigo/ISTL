@@ -9,6 +9,10 @@
 
 #include <curses.h>
 
+#ifndef NMAX
+#define NMAX(x1, x2) ((x1) > (x2) ? (x1) : (x2))
+#endif
+
 /*!
     \brief Variable attribute allowing to autofree a pointer
     \details If the pointer was allocated with **snew**, allows to

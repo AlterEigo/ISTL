@@ -85,3 +85,21 @@ Test(vector_pop, vector_pop_back)
     cr_expect(vector_pop(vec1));
     cr_expect(vector_len(vec1) == 7);
 }
+
+Test(vector_iswap, vector_item_swap)
+{
+    vector_t *vec1 = create_full_vector(10);
+    const int val1 = 68924;
+    const int val2 = 3455605;
+
+    cr_assert(vec1 != NULL);
+    vector_set(vec1, 1, &val1);
+    vector_set(vec1, 8, &val2);
+    cr_assert(vector_cget(vec1, 1) != NULL);
+    cr_assert(vector_cget(vec1, 8) != NULL);
+    vector_iswap(vec1, 1, 8);
+    cr_assert(vector_cget(vec1, 1) != NULL);
+    cr_assert(vector_cget(vec1, 8) != NULL);
+    cr_expect(*(int *)vector_cget(vec1, 1) == val2);
+    cr_expect(*(int *)vector_cget(vec1, 8) == val1);
+}

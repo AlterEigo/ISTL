@@ -33,3 +33,15 @@ uint_t vector_expand(vector_t *vec)
     vec->data = data;
     return (vec->capacity);
 }
+
+int vector_iswap(vector_t *vec, uint_t idx1, uint_t idx2)
+{
+    void *data = NULL;
+
+    if (vec == NULL || NMAX(idx1, idx2) >= vector_len(vec))
+        return (-1);
+    data = vec->data[idx1];
+    vec->data[idx1] = vec->data[idx2];
+    vec->data[idx2] = data;
+    return (0);
+}
