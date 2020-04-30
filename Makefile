@@ -143,7 +143,7 @@ LIBRARY			=
 
 
 CC			=	gcc
-C_FLAGS			=	-W -Wall -Wextra -Werror \
+C_FLAGS			=	-W -Wall -Wextra -Werror -O3 \
 				-I$(HEADER_DIR) \
 				-Wno-switch \
 				-Wno-unused-variable \

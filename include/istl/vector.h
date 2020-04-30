@@ -9,6 +9,7 @@
 #define ISTL_VECTOR_H_INCLUDED
 
 typedef struct Vector (vector_t);
+typedef bool_t (*vsorter_ft)(void const *lhs, void const *rhs);
 
 vector_t *vector_create(mdata_t type);
 void vector_free(vector_t **vec);
@@ -24,5 +25,7 @@ vector_t *vector_push(vector_t *, void const *);
 vector_t *vector_pop(vector_t *);
 void *vector_pull(vector_t *, uint_t);
 int vector_iswap(vector_t *, uint_t, uint_t);
+
+void vector_sort(vector_t *, vsorter_ft);
 
 #endif

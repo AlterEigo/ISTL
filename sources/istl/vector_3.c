@@ -5,6 +5,9 @@
 ** Description
 */
 
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include "istl/private/p_vector.h"
 
@@ -44,4 +47,40 @@ int vector_iswap(vector_t *vec, uint_t idx1, uint_t idx2)
     vec->data[idx1] = vec->data[idx2];
     vec->data[idx2] = data;
     return (0);
+}
+
+void vector_sort(vector_t *vec, vsorter_ft sorter)
+{
+    uint_t len = vector_len(vec);
+
+    if (vec == NULL || sorter == NULL || len < 2)
+        return;
+    vector_qs(vec, sorter, 0, len - 1);
+}
+
+void vector_qs(vector_t *vec, vsorter_ft sorter, uint_t lb, uint_t rb)
+{
+    uint_t li = lb;
+    uint_t ri = rb - 1;
+    uint_t m = (lb + rb) / 2;
+    void const *const p = vector_cget(vec, m);
+
+    int pid;
+
+    if (vec == NULL || lb >= rb)
+        return;
+    vector_iswap(vec, rb, m);
+    while (TRUE) {
+        for (; sorter(p, vector_cget(vec, li)) && li < rb; li++);
+        for (; sorter(vector_cget(vec, ri), p) && ri > lb; ri--);
+        if (li >= ri) {
+            vector_iswap(vec, rb, li);
+            break;
+        }
+        vector_iswap(vec, li, ri);
+        li += 1;
+        ri -= 1;
+    }
+    vector_qs(vec, sorter, lb, (li > 0) ? li - 1 : 0);
+    vector_qs(vec, sorter, li + 1, rb);
 }

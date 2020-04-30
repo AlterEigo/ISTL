@@ -24,6 +24,15 @@ vector_t *create_full_vector(uint_t size)
     return (vec);
 }
 
+bool_t int_sorter(void const *lhs, void const *rhs)
+{
+    if (lhs == NULL || rhs == NULL)
+        return (FALSE);
+    if (*(int *)lhs > *(int *)rhs)
+        return (TRUE);
+    return (FALSE);
+}
+
 Test(vector_essentials, essentials_vector_tests)
 {
     vector_t *vec = vector_create(MB_INT);
@@ -102,4 +111,23 @@ Test(vector_iswap, vector_item_swap)
     cr_assert(vector_cget(vec1, 8) != NULL);
     cr_expect(*(int *)vector_cget(vec1, 1) == val2);
     cr_expect(*(int *)vector_cget(vec1, 8) == val1);
+}
+
+Test(vector_sort, quick_sort_test)
+{
+    const uint_t size = 100;
+    vector_t *vec1 = create_full_vector(size);
+    int const *n1 = NULL;
+    int const *n2 = NULL;
+
+    cr_assert(vec1 != NULL);
+    vector_sort(vec1, int_sorter);
+    for (uint_t i = 0; i < size - 1; i++) {
+        n1 = vector_cget(vec1, i);
+        n2 = vector_cget(vec1, i + 1);
+        cr_assert(n1 != NULL);
+        cr_assert(n2 != NULL);
+        if (*n1 != *n2)
+            cr_expect(int_sorter(n2, n1) == TRUE);
+    }
 }

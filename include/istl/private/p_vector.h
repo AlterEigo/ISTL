@@ -23,4 +23,6 @@ typedef struct Vector {
 
 uint_t vector_expand(vector_t *vec);
 
+void vector_qs(vector_t *vec, vsorter_ft sorter, uint_t lb, uint_t rb);
+
 #endif
