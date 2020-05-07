@@ -8,6 +8,8 @@
 #ifndef ISTL_VECTOR_H_INCLUDED
 #define ISTL_VECTOR_H_INCLUDED
 
+#include "istl/list.h"
+
 typedef struct Vector (vector_t);
 typedef bool_t (*vsorter_ft)(void const *lhs, void const *rhs);
 
@@ -27,5 +29,10 @@ void *vector_pull(vector_t *, uint_t);
 int vector_iswap(vector_t *, uint_t, uint_t);
 
 void vector_sort(vector_t *, vsorter_ft);
+
+/*!
+    \todo Optimize
+*/
+vector_t *vector_from_list(list_t *);
 
 #endif
