@@ -16,6 +16,8 @@ void *shared_ptr(mdata_t tmeta)
     mcell->type = SP_SHARED;
     mcell->wcount = malloc(sizeof(uint_t));
     mcell->count = malloc(sizeof(uint_t));
+    if (mcell->wcount == NULL || mcell->count == NULL)
+        return (sdel(&alloc), NULL);
     *mcell->count = 1;
     *mcell->wcount = 0;
     return (mcell->data);

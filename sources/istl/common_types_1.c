@@ -25,6 +25,8 @@ __attribute__((malloc)) void *snew(mdata_t m)
 {
     mcell_t *mcell = malloc(sizeof(mcell_t) + m.data_size);
 
+    if (mcell == NULL)
+        return (NULL);
     *mcell = (mcell_t) {
         .type = SP_UNIQUE,
         .count = NULL,
