@@ -13,6 +13,8 @@ list_t *list_create(meta_bundle_t meta)
 {
     list_t *list = malloc(sizeof(list_t));
 
+    if (list == NULL)
+        return (NULL);
     list->size = 0;
     list->begin = it_allocate(0, 0);
     list->end = list->begin;
