@@ -29,7 +29,6 @@ bool_t regex_extract(cchar_t str, fnode_t const *const pattern, map_t *grp)
     int state = 0;
     fnode_t const *node_p = NULL;
     bool_t final = FALSE;
-    int idx = 1;
 
     if (str == NULL || pattern == NULL)
         return (FALSE);

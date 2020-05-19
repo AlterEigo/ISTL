@@ -53,7 +53,6 @@ void *vector_copy(void const *vec_p)
 {
     vector_t *copy = NULL;
     vector_t const *vec = vec_p;
-    void **data = NULL;
 
     if (vec_p == NULL)
         return (NULL);

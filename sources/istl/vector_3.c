@@ -64,7 +64,6 @@ void vector_qs(vector_t *vec, vsorter_ft sorter, uint_t lb, uint_t rb)
     uint_t ri = rb - 1;
     uint_t m = (lb + rb) / 2;
     void const *const p = vector_cget(vec, m);
-    int pid;
 
     if (vec == NULL || lb >= rb)
         return;
