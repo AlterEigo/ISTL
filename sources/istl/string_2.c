@@ -24,13 +24,12 @@ uint_t str_count(string_t const *str, char c)
     return (count);
 }
 
-void str_pick(string_t **rstr, char c)
+void str_pick(string_t *str, char c)
 {
     char *nstr = 0;
-    string_t *str = *rstr;
     uint_t nlen = 0;
 
-    if (rstr == 0 || str == 0)
+    if (str == 0)
         return;
     nlen = str_len(str) - str_count(str, c);
     nstr = malloc(sizeof(char) * (nlen + 1));
@@ -41,8 +40,8 @@ void str_pick(string_t **rstr, char c)
         nstr[j] = str_cstr(str)[i];
         j += 1;
     }
-    str_free(rstr);
-    *rstr = str_wcreate(nstr);
+    str->cstr = nstr;
+    str->length = nlen;
 }
 
 list_t *str_split(string_t const *str, char c)

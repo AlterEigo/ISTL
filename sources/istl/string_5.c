@@ -34,21 +34,9 @@ void str_free(string_t **pstr)
     *pstr = 0;
 }
 
-void str_strip(string_t **str_p)
+void str_strip(string_t *str)
 {
-    uint_t left = 0;
-    uint_t right = 0;
-    string_t *str = (str_p == NULL) ? NULL : *str_p;
-    string_t *tmp = NULL;
-
-    if (str == NULL)
-        return;
-    left += str_cstr(str)[0] == ' ' ? 1 : 0;
-    right = str_len(str) - 1;
-    right -= str_cstr(str)[right] == ' ' ? 1 : 0;
-    tmp = str_substr(str, left, right);
-    str_free(&str);
-    *str_p = tmp;
+    str_cnstrip(str, ' ', -1, -1);
 }
 
 void str_replace(string_t *str, char a, char b)
@@ -59,4 +47,24 @@ void str_replace(string_t *str, char a, char b)
         if (str_cstr(str)[i] == a)
             str->cstr[i] = b;
     }
+}
+
+void str_cnstrip(string_t *str, char c, uint_t l, uint_t r)
+{
+    uint_t left = 0;
+    uint_t right = 0;
+    string_t *tmp = NULL;
+
+    if (str == NULL)
+        return;
+    l -= 1;
+    r = (r == (uint_t)(-1)) ? r : r + 1;
+    for (; str_cstr(str)[left] == c; left++);
+    right = str_len(str) - 1;
+    for (; right != (uint_t)(-1) && str_cstr(str)[right] == c; right--);
+    left = (left > l) ? l : left;
+    right = ((str_len(str) - right) > r) ? str_len(str) - r : right;
+    tmp = str_substr(str, left, right);
+    str->cstr = tmp->cstr;
+    str->length = tmp->length;
 }
