@@ -27,6 +27,7 @@ vector_t *vector_push(vector_t *, void const *);
 vector_t *vector_pop(vector_t *);
 void *vector_pull(vector_t *, uint_t);
 int vector_iswap(vector_t *, uint_t, uint_t);
+int vector_narrow(vector_t *);
 
 void vector_sort(vector_t *, vsorter_ft);
 
