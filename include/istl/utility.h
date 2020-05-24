@@ -60,6 +60,6 @@ bool_t str_uint(cchar_t str);
 bool_t fnode_null(fnode_t const *);
 bool_t regex_wild(fnode_t const *node);
 fnode_t const *regex_forward(char, const fnode_t[], int *);
-bool_t regex_extract(cchar_t str, fnode_t const *const pattern, map_t *grp);
+bool_t regex_extract(cchar_t, fnode_t const *const, map_t *grp, int *state);
 
 #endif

@@ -24,18 +24,19 @@ bool_t fnode_null(fnode_t const *node)
     return (res);
 }
 
-bool_t regex_extract(cchar_t str, fnode_t const *const pattern, map_t *grp)
+bool_t regex_extract(cchar_t str, fnode_t const *const pattern,
+        map_t *grp, int *state)
 {
-    int state = 0;
     fnode_t const *node_p = NULL;
     bool_t final = FALSE;
 
-    if (str == NULL || pattern == NULL)
-        return (FALSE);
+    if (str == NULL || pattern == NULL || state == NULL)
+        return (0);
     map_drop(grp);
+    (*state) = 0;
     for (uint_t i = 0; str[i] != 0; i++) {
         final = FALSE;
-        node_p = regex_forward(str[i], pattern, &state);
+        node_p = regex_forward(str[i], pattern, state);
         if (node_p != NULL) {
             final = node_p->fs;
             regex_extract_char(str[i], node_p, grp);
